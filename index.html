@@ -261,7 +261,7 @@ const CATS = {
   aw:{key:'awareness',label:'Awareness',icon:'📈',color:'var(--teal)',bg:'var(--teal-bg)',bd:'#24453c',badge:'AW',
         desc:'Campañas NSN Seguidores (USA + CR): visitas al perfil de Instagram, reproducción de video y embudo de alcance.'},
   ventas:{key:'ventas',label:'Ventas directas',icon:'🛒',color:'var(--blue)',bg:'#111a26',bd:'#253a5a',badge:'Productos',
-        desc:'Venta directa del programa Mujer Metabólica ($57) tras los lanzamientos de Mayo y Agosto. 371 ventas históricas del programa.'},
+        desc:'Venta directa del programa Mujer Metabólica ($57) tras los lanzamientos de Mayo y Agosto. 371 ventas del programa en los últimos 24 meses.'},
 };
 const LAUNCHES = {
   abril:{label:'Abril 2026',sub:'10 – 20 Abr · Leads',acct:A1},
@@ -278,12 +278,12 @@ const SGROUPS = null;
    lines.q = ventas reales reportadas por el cliente; q:'meta' = se usan las compras registradas por Meta (sin total real reportado). */
 const PRICE = {liviana:9, airfryer:12.97, batidos:9, '7dias':17, sinazucar:17, rrm:17, metabolica:57};
 const PRODUCTS = [
-  {k:'metabolica',cat:'lanz',also:['ventas'],grps:['abril','codigo','agosto','metabolica'],label:'Programa Mujer Metabólica · histórico',
-   sub:'embudo: captación Abril + Código Metabólico + Agosto y campañas de venta',
-   lines:[{l:'Ventas históricas del programa',q:371,p:57}]},
+  {k:'metabolica',cat:'lanz',also:['ventas'],grps:['abril','codigo','agosto','metabolica'],label:'Programa Mujer Metabólica · últimos 24 meses',
+   sub:'371 ventas en 24 meses − 35 asignadas al lanzamiento Mujer Liviana = 336<br>embudo: captación Abril + Código Metabólico + Agosto y campañas de venta',
+   lines:[{l:'Ventas del programa (sin las de Mujer Liviana)',q:336,p:57}]},
   {k:'liviana',cat:'lanz',grps:['liviana'],label:'Lanzamiento Mujer Liviana (Septiembre)',lines:[
      {l:'Entradas vendidas por pauta',q:195,p:9},
-     {l:'Ventas del programa (cierre del lanzamiento)',q:35,p:57,noMeta:true}]},
+     {l:'Ventas del programa Mujer Metabólica (cierre del lanzamiento)',q:35,p:57,noMeta:true}]},
   {k:'airfryer',cat:'vsl',grps:['airfryer'],label:'VSL 50 Recetas Airfryer',lines:[{l:'Ventas',q:187,p:12.97}]},
   {k:'batidos',cat:'vsl',grps:['batidos'],label:'VSL 27 Batidos',lines:[{l:'Ventas',q:15,p:9}]},
   {k:'7dias',cat:'vsl',grps:['7dias'],label:'VSL 7 días sin azúcar',lines:[{l:'Ventas',q:'meta',p:17}]},
@@ -451,7 +451,7 @@ function revenueBlock(prods,title){
     if(p.lines.length>1) p.lines.forEach(x=>{h+=`<tr class="subrow"><td class="name">↳ ${x.l}<small>${x.noMeta?'venta del programa (no atribuible por campaña)':'registradas por Meta: '+nf(p.metaSales)}</small></td><td>${nf(x.q)}</td><td>${money(x.p)}</td><td style="color:var(--green)">${money(x.q*x.p)}</td><td></td><td></td><td></td><td></td></tr>`});
   });
   h+=`</tbody><tfoot><tr class="total"><td class="name">TOTAL</td><td>${nf(sales)}</td><td></td><td style="color:var(--green)">${money(rev)}</td><td>${money(sp)}</td><td>${money(sp/sales)}</td><td style="color:${roasColor(roas)}">${roasTxt(roas)}</td><td></td></tr></tfoot></table>
-  <div class="note">Ingresos = ventas reales reportadas × precio de venta (Mujer Metabólica $57 · Mujer Liviana: entradas $9, programa $57 · Airfryer $12,97 · 27 Batidos $9 · 7 días sin azúcar $17 · RRM $17). En los VSL de $17 sin total real reportado se usan las compras registradas por Meta. “Atribuidos a pauta” usa solo las compras que registró el píxel de Meta. Mujer Metabólica: las campañas de lanzamiento son etapas de captación; sus ventas reales (371 históricas) se comparan contra toda la inversión del embudo. <span style="color:var(--green)">■</span> ingresos <span style="color:var(--orange)">■</span> inversión</div></div>`;
+  <div class="note">Ingresos = ventas reales reportadas × precio de venta (Mujer Metabólica $57 · Mujer Liviana: entradas $9, programa $57 · Airfryer $12,97 · 27 Batidos $9 · 7 días sin azúcar $17 · RRM $17). En los VSL de $17 sin total real reportado se usan las compras registradas por Meta. “Atribuidos a pauta” usa solo las compras que registró el píxel de Meta. Mujer Metabólica: las campañas de lanzamiento son etapas de captación; lleva 371 ventas en los últimos 24 meses: 35 se asignan al lanzamiento Mujer Liviana y las 336 restantes se comparan contra la inversión del resto del embudo (sin contar dos veces). <span style="color:var(--green)">■</span> ingresos <span style="color:var(--orange)">■</span> inversión</div></div>`;
   return h;
 }
 
@@ -560,7 +560,7 @@ function renderGeneric(catKey,panel,groups,sel='todos'){
   const notes={
     vsl:'Campañas con video de ventas (VSL) y objetivo Ventas. “Frío/Tibio/Templado” indica la temperatura del público. Costo por compra calculado sobre compras web del píxel. Las campañas Airfryer del 07/09 son pruebas por país (MEX, COL, USA). Ingresos por campaña = compras atribuidas por Meta × precio de venta.',
     aw:'Objetivo Tráfico hacia el perfil de Instagram; el resultado es “visita al perfil”. Los clics en el enlace incluyen los clics hacia el perfil.',
-    ventas:'Campañas de venta directa de Mujer Metabólica ($57). Ingresos por campaña = compras registradas por Meta × $57; las ventas reales (371 históricas) se muestran en el bloque de ingresos junto con la inversión de captación de los lanzamientos.'};
+    ventas:'Campañas de venta directa de Mujer Metabólica ($57). Ingresos por campaña = compras registradas por Meta × $57; las ventas reales (371 en 24 meses, 336 sin contar las 35 de Mujer Liviana) se muestran en el bloque de ingresos junto con la inversión de captación de los lanzamientos.'};
   h+=table(list,{note:notes[catKey],resCol:isAw?'Visitas perfil':'Compras'});
   h+=`<div class="sec">Campañas · costo por resultado</div><div class="ccards">${list.map(c=>ccard(c,list,groups?groups[c.grp]:'')).join('')}</div>`;
   el(panel).innerHTML=h;
