@@ -157,7 +157,8 @@ tbody tr:hover td{background:rgba(255,255,255,.015)}
 .in{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--c);border-radius:14px;padding:18px 20px;font-size:14px;color:var(--gold-dim)}
 .in b{color:var(--gold);display:block;margin-bottom:6px;font-size:14.5px}
 
-table.rev{min-width:1050px}
+table.rev{min-width:1150px}
+table.rev td.name{min-width:340px}
 .rvbar{height:7px;background:var(--bg2);border-radius:999px;overflow:hidden;margin:3px 0}
 .rvbar i{display:block;height:100%;border-radius:999px}
 tr.subrow td{padding-top:8px;padding-bottom:8px;font-size:13px}
@@ -165,6 +166,9 @@ tr.subrow td.name{color:var(--gold-dim);font-weight:400;padding-left:22px}
 .cc .rv{display:flex;gap:24px;margin-top:12px;padding:10px 14px;border-radius:12px;background:var(--green-bg);border:1px solid #23472b}
 .cc .rv b{display:block;font-family:'DM Mono',monospace;font-size:17px;font-weight:500}
 .cc .rv span{font-size:11.5px;color:var(--muted)}
+.hot{border-color:#3d3523}
+.hot-h{color:var(--gold);font-weight:700;font-size:17px;padding:14px 0 4px;display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
+.hot-h span{font-family:'DM Mono',monospace;font-size:12px;font-weight:400;color:var(--muted)}
 footer{margin-top:60px;color:var(--faint);font-size:12.5px;text-align:center;font-family:'DM Mono',monospace}
 
 @media (max-width:1100px){.kpis{grid-template-columns:repeat(2,1fr)}.lcomp{grid-template-columns:repeat(2,1fr)}.ins{grid-template-columns:1fr}}
@@ -261,7 +265,7 @@ const CATS = {
   aw:{key:'awareness',label:'Awareness',icon:'📈',color:'var(--teal)',bg:'var(--teal-bg)',bd:'#24453c',badge:'AW',
         desc:'Campañas NSN Seguidores (USA + CR): visitas al perfil de Instagram, reproducción de video y embudo de alcance.'},
   ventas:{key:'ventas',label:'Ventas directas',icon:'🛒',color:'var(--blue)',bg:'#111a26',bd:'#253a5a',badge:'Productos',
-        desc:'Venta directa del programa Mujer Metabólica ($57) tras los lanzamientos de Mayo y Agosto. 371 ventas del programa desde el primer lanzamiento (10 abr 2026).'},
+        desc:'Venta directa del programa Mujer Metabólica ($57) tras los lanzamientos de Mayo y Agosto. 336 ventas reales en Hotmart.'},
 };
 const LAUNCHES = {
   abril:{label:'Abril 2026',sub:'10 – 20 Abr · Leads',acct:A1},
@@ -278,17 +282,15 @@ const SGROUPS = null;
    lines.q = ventas reales (Hotmart); refund = tasa de reembolso en Hotmart. */
 const PRICE = {liviana:9, airfryer:12.97, batidos:9, '7dias':17, sinazucar:17, rrm:17, metabolica:57};
 const PRODUCTS = [
-  {k:'metabolica',cat:'lanz',also:['ventas'],grps:['abril','codigo','agosto','metabolica'],label:'Mujer Metabólica',refund:0.3,
+  {k:'metabolica',cat:'lanz',also:['ventas'],grps:['abril','codigo','agosto','metabolica'],label:'MUJER METABÓLICA',refund:0.3,
    sub:'embudo: captación Abril + Código Metabólico + Agosto y campañas de venta',
    lines:[{l:'Ventas',q:336,p:57}]},
-  {k:'liviana',cat:'lanz',grps:['liviana'],label:'Lanzamiento Mujer Liviana (Septiembre)',refund:0,lines:[
-     {l:'Entrada a Reto Mujer Liviana',q:211,p:9,refund:0},
-     {l:'Ventas Mujer Metabólica del cierre del lanzamiento',q:35,p:57,noMeta:true}]},
-  {k:'airfryer',cat:'vsl',grps:['airfryer'],label:'50 Recetas Fáciles y Saludables en Airfryer',refund:0.55,lines:[{l:'Ventas',q:181,p:12.97}]},
-  {k:'reto',cat:'vsl',grps:['7dias','sinazucar','rrm'],label:'Reto Reset Metabólico | 7 Días Sin Azúcar',refund:1.43,
+  {k:'liviana',cat:'lanz',grps:['liviana'],label:'ENTRADA A RETO MUJER LIVIANA',refund:0,sub:'lanzamiento Mujer Liviana (Septiembre)',lines:[{l:'Ventas',q:211,p:9}]},
+  {k:'airfryer',cat:'vsl',grps:['airfryer'],label:'50 RECETAS FÁCILES Y SALUDABLES EN AIRFRYER',refund:0.55,lines:[{l:'Ventas',q:181,p:12.97}]},
+  {k:'reto',cat:'vsl',grps:['7dias','sinazucar','rrm'],label:'RETO RESET METABÓLICO | 7 DÍAS SIN AZÚCAR',refund:1.43,
    sub:'VSL 7 días + VSL Sin Azúcar (I y II) + VSL RRM',lines:[{l:'Ventas',q:69,p:17}]},
-  {k:'batidos',cat:'vsl',grps:['batidos'],label:'27 Batidos para Desinflamar y Limpiar el Intestino',refund:0,lines:[{l:'Ventas',q:13,p:9}]},
-  {k:'comesinculpa',cat:null,grps:[],label:'Método Comé Sin Culpa',refund:0,sub:'sin campañas de pauta en el periodo (venta orgánica)',lines:[{l:'Ventas',q:6,p:17}]},
+  {k:'batidos',cat:'vsl',grps:['batidos'],label:'27 BATIDOS PARA DESINFLAMAR Y LIMPIAR EL INTESTINO',refund:0,lines:[{l:'Ventas',q:13,p:9}]},
+  {k:'comesinculpa',cat:null,grps:[],label:'MÉTODO COMÉ SIN CULPA',refund:0,sub:'sin campañas de pauta en el periodo (venta orgánica)',lines:[{l:'Ventas',q:6,p:17}]},
 ];
 C.forEach(c=>{c.rev=PRICE[c.grp]!=null?c.res*PRICE[c.grp]:null;c.roas=c.rev!=null&&c.spend?c.rev/c.spend:null});
 PRODUCTS.forEach(P=>{
@@ -432,26 +434,28 @@ function revenueBlock(prods,title){
   if(!prods.length) return '';
   const rev=prods.reduce((a,p)=>a+p.rev,0), sp=prods.reduce((a,p)=>a+p.spend,0), pa=prods.reduce((a,p)=>a+p.revPauta,0);
   const sales=prods.reduce((a,p)=>a+p.sales,0), roas=sp?rev/sp:0, profit=rev-sp;
+  const max=Math.max(...prods.map(p=>Math.max(p.rev,p.spend)));
+  const pctR=v=>(Number.isInteger(v)?nf(v):nf(v,2).replace(/0$/,''))+'%';
   let h=`<div class="sec">💵 ${title}</div>`;
-  h+=kpis([
-    {v:money(rev),l:'Ingresos totales',d:`${nf(sales)} ventas × precio de venta`,c:'var(--green)'},
+  h+=`<div class="tcard hot"><div class="hot-h">Visualización por producto <span>ventas reales · Hotmart</span></div>
+  <table class="rev"><thead><tr><th>Nombre del producto</th><th>Total de ventas</th><th>Precio</th><th>Ingresos</th><th>Inversión en pauta</th><th>Costo por venta</th><th>ROAS</th><th>Tasa de reembolso</th><th style="text-align:left;min-width:160px">Ingresos vs inversión</th></tr></thead><tbody>`;
+  prods.forEach(p=>{
+    const pr=p.lines[0].p;
+    h+=`<tr><td class="name">${p.label}<small>${p.sub||''}${p.n?`${p.sub?'<br>':''}${p.n} campaña${p.n>1?'s':''} · compras registradas por Meta: ${nf(p.metaSales)}`:''}</small></td>
+      <td style="color:var(--gold);font-weight:500">${nf(p.sales)}</td><td>${money(pr)}</td><td style="color:var(--green)">${money(p.rev)}</td>
+      <td style="color:var(--orange)">${p.spend?money(p.spend):'—'}</td><td>${p.spend?money(p.spend/p.sales):'—'}</td>
+      <td style="color:${roasColor(p.roas)};font-weight:500">${p.roas==null?'orgánico':roasTxt(p.roas)}</td>
+      <td style="color:${p.refund>1?'var(--red)':'var(--gold-dim)'}">${pctR(p.refund)}</td>
+      <td style="text-align:left"><div class="rvbar"><i style="width:${p.rev/max*100}%;background:var(--green)"></i></div><div class="rvbar"><i style="width:${p.spend/max*100}%;background:var(--orange)"></i></div></td></tr>`;
+  });
+  h+=`</tbody><tfoot><tr class="total"><td class="name">TOTAL</td><td>${nf(sales)}</td><td></td><td style="color:var(--green)">${money(rev)}</td><td>${money(sp)}</td><td>${money(sp/sales)}</td><td style="color:${roasColor(roas)}">${roasTxt(roas)}</td><td></td><td></td></tr></tfoot></table>
+  <div class="note">Ventas reales tomadas de Hotmart (visualización por producto). Ingresos = total de ventas × precio: Mujer Metabólica $57 · Entrada Reto Mujer Liviana $9 · 50 Recetas Airfryer $12,97 · Reto Reset Metabólico / 7 Días Sin Azúcar $17 · 27 Batidos $9 · Método Comé Sin Culpa $17. Inversión en pauta = campañas de Meta Ads de cada producto (Mujer Metabólica incluye la captación de los lanzamientos Abril, Código Metabólico y Agosto). <span style="color:var(--green)">■</span> ingresos <span style="color:var(--orange)">■</span> inversión</div></div>`;
+  h+=`<div style="height:18px"></div>`+kpis([
+    {v:money(rev),l:'Ingresos totales',d:`${nf(sales)} ventas reales (Hotmart)`,c:'var(--green)'},
     {v:roasTxt(roas),l:'ROAS',d:'ingresos ÷ inversión publicitaria',c:roasColor(roas)},
     {v:money(profit),l:profit>=0?'Ganancia sobre pauta':'Pérdida sobre pauta',d:`ingresos − ${money(sp)} invertidos`,c:profit>=0?'var(--green)':'var(--red)'},
-    {v:money(pa),l:'Ingresos atribuidos a pauta',d:`ventas registradas por Meta · ROAS ${roasTxt(sp?pa/sp:null)}`,c:'var(--gold)'},
+    {v:money(pa),l:'Ingresos atribuidos por Meta',d:`solo compras del píxel · ROAS ${roasTxt(sp?pa/sp:null)}`,c:'var(--gold)'},
   ]);
-  const max=Math.max(...prods.map(p=>Math.max(p.rev,p.spend)));
-  const cpv=p=>p.spend?money(p.spend/p.sales):'—';
-  h+=`<div class="tcard" style="margin-top:18px"><table class="rev"><thead><tr><th>Producto (Hotmart)</th><th>Inversión en pauta</th><th>Ventas</th><th>Precio</th><th>Ingresos</th><th>Costo por venta</th><th>ROAS</th><th>Reembolso</th><th style="text-align:left;min-width:170px">Ingresos vs inversión</th></tr></thead><tbody>`;
-  prods.forEach(p=>{
-    h+=`<tr><td class="name">${p.label}<small>${p.sub||''}${p.n?`${p.sub?'<br>':''}${p.n} campaña${p.n>1?'s':''} · ventas registradas por Meta: ${nf(p.metaSales)}`:''}</small></td>
-      <td style="color:var(--orange)">${p.spend?money(p.spend):'—'}</td><td>${nf(p.sales)}</td><td>${p.lines.length>1?'—':money(p.lines[0].p)}</td><td style="color:var(--green)">${money(p.rev)}</td>
-      <td>${cpv(p)}</td><td style="color:${roasColor(p.roas)};font-weight:500">${p.roas==null?'orgánico':roasTxt(p.roas)}</td>
-      <td style="color:${p.refund>1?'var(--red)':'var(--gold-dim)'}">${nf(p.refund,p.refund%1?2:0).replace(/,?0+$/,'')||'0'}%</td>
-      <td style="text-align:left"><div class="rvbar"><i style="width:${p.rev/max*100}%;background:var(--green)"></i></div><div class="rvbar"><i style="width:${p.spend/max*100}%;background:var(--orange)"></i></div></td></tr>`;
-    if(p.lines.length>1) p.lines.forEach(x=>{h+=`<tr class="subrow"><td class="name">↳ ${x.l}<small>${x.noMeta?'parte del total de Mujer Metabólica (371 = 336 + 35)':'Hotmart · registradas por Meta: '+nf(p.metaSales)}</small></td><td></td><td>${nf(x.q)}</td><td>${money(x.p)}</td><td style="color:var(--green)">${money(x.q*x.p)}</td><td></td><td></td><td></td><td></td></tr>`});
-  });
-  h+=`</tbody><tfoot><tr class="total"><td class="name">TOTAL</td><td>${money(sp)}</td><td>${nf(sales)}</td><td></td><td style="color:var(--green)">${money(rev)}</td><td>${money(sp/sales)}</td><td style="color:${roasColor(roas)}">${roasTxt(roas)}</td><td></td><td></td></tr></tfoot></table>
-  <div class="note">Fuente de ventas: Hotmart (visualización por producto). Ingresos = ventas × precio de venta: Mujer Metabólica $57 · Entrada Reto Mujer Liviana $9 · 50 Recetas Airfryer $12,97 · Reto Reset Metabólico / 7 Días Sin Azúcar $17 · 27 Batidos $9 · Método Comé Sin Culpa $17. Las 35 ventas de Mujer Metabólica del cierre de Mujer Liviana completan las 371 ventas del programa (336 en Hotmart + 35), todas desde el primer lanzamiento (10/04/2026). Mujer Metabólica se compara contra la inversión de captación de los lanzamientos Abril, Código Metabólico y Agosto más sus campañas de venta. “Atribuidos a pauta” usa solo las compras que registró el píxel de Meta. <span style="color:var(--green)">■</span> ingresos <span style="color:var(--orange)">■</span> inversión</div></div>`;
   return h;
 }
 
@@ -468,7 +472,7 @@ function renderResumen(){
   const vis=sum(C.filter(c=>c.rt==='visitas'),'res');
   const catOrder=['lanz','vsl','aw','ventas'];
   const tot=a.spend;
-  let h=revenueBlock(PRODUCTS,'Ventas e ingresos por producto · Hotmart');
+  let h=revenueBlock(PRODUCTS,'Ventas reales por producto · Hotmart');
   h+=`<div class="sec">Resumen general · 2 cuentas publicitarias · ${C.length} campañas</div>`;
   h+=kpis([
     {v:money(a.spend),l:'Inversión total',d:`${C.length} campañas con inversión`,c:'var(--orange)'},
@@ -528,7 +532,7 @@ function renderLanz(sel='todos'){
     abril:'Cuenta 565816124663247. Solo se incluyen las 2 campañas del Lanzamiento Abril 2026 (🟡 Tráfico Tibio y 🔵 Tráfico Frío). Etapa de captación del programa Mujer Metabólica.',
     codigo:'Campañas con objetivo Ventas: Meta reporta el resultado como “compra en el sitio web”. Por su costo (~$0,26–0,45) corresponden a registros de bajo valor / gratuitos del lanzamiento.',
     agosto:'Las 4 campañas de captación del Lanzamiento Agosto. Se excluyen las campañas NSN Seguidores (ver pestaña Awareness).',
-    liviana:'Venta de entradas ($9) al lanzamiento Mujer Liviana, campañas iniciadas el 11/09/2026. Los ingresos por campaña solo cuentan las entradas; las 35 ventas del programa ($57) se suman en el bloque de ingresos del lanzamiento.'};
+    liviana:'Venta de entradas ($9) al lanzamiento Mujer Liviana, campañas iniciadas el 11/09/2026. Ventas reales en Hotmart: 211 entradas × $9.'};
   h+=table(list,{note:notes[sel],resCol:'Resultados'});
   h+=`<div class="sec">Campañas · costo por resultado</div><div class="ccards">${list.map(c=>ccard(c,list,sel==='todos'?LAUNCHES[c.grp].label:'')).join('')}</div>`;
   el('p-lanzamientos').innerHTML=h;
@@ -560,7 +564,7 @@ function renderGeneric(catKey,panel,groups,sel='todos'){
   const notes={
     vsl:'Campañas con video de ventas (VSL) y objetivo Ventas. “Frío/Tibio/Templado” indica la temperatura del público. Costo por compra calculado sobre compras web del píxel. Las campañas Airfryer del 07/09 son pruebas por país (MEX, COL, USA). Ingresos por campaña = compras atribuidas por Meta × precio de venta.',
     aw:'Objetivo Tráfico hacia el perfil de Instagram; el resultado es “visita al perfil”. Los clics en el enlace incluyen los clics hacia el perfil.',
-    ventas:'Campañas de venta directa de Mujer Metabólica ($57). Ingresos por campaña = compras registradas por Meta × $57; las ventas reales (371 totales desde Abril 2026, 336 sin contar las 35 de Mujer Liviana) se muestran en el bloque de ingresos junto con la inversión de captación de los lanzamientos.'};
+    ventas:'Campañas de venta directa de Mujer Metabólica ($57). Ingresos por campaña = compras registradas por Meta × $57; las ventas reales (336 en Hotmart desde el primer lanzamiento, 10/04/2026) se muestran en el bloque de ingresos junto con la inversión de captación de los lanzamientos.'};
   h+=table(list,{note:notes[catKey],resCol:isAw?'Visitas perfil':'Compras'});
   h+=`<div class="sec">Campañas · costo por resultado</div><div class="ccards">${list.map(c=>ccard(c,list,groups?groups[c.grp]:'')).join('')}</div>`;
   el(panel).innerHTML=h;
