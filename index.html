@@ -107,7 +107,7 @@ h1{font-family:'Playfair Display',serif;color:var(--gold);font-size:clamp(28px,4
 
 /* table */
 .tcard{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:12px 26px 20px;overflow-x:auto}
-table{width:100%;border-collapse:collapse;font-size:14px;min-width:980px}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:1150px}
 th{color:var(--faint);font-weight:500;font-size:11.5px;letter-spacing:1px;text-transform:uppercase;text-align:right;padding:18px 10px 14px;border-bottom:1px solid var(--line);white-space:nowrap;cursor:pointer;user-select:none}
 th:first-child,td:first-child{text-align:left}
 th:hover{color:var(--gold-dim)}
@@ -142,7 +142,7 @@ tbody tr:hover td{background:rgba(255,255,255,.015)}
 .cc .bar em{font-style:normal;font-family:'DM Mono',monospace;text-align:right;color:var(--gold-dim)}
 
 /* launch compare */
-.lcomp{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.lcomp{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
 .lc{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;cursor:pointer;transition:.2s}
 .lc:hover{border-color:var(--line2);transform:translateY(-2px)}
 .lc .lt{color:var(--gold);font-weight:600;font-size:16px}
@@ -157,6 +157,14 @@ tbody tr:hover td{background:rgba(255,255,255,.015)}
 .in{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--c);border-radius:14px;padding:18px 20px;font-size:14px;color:var(--gold-dim)}
 .in b{color:var(--gold);display:block;margin-bottom:6px;font-size:14.5px}
 
+table.rev{min-width:900px}
+.rvbar{height:7px;background:var(--bg2);border-radius:999px;overflow:hidden;margin:3px 0}
+.rvbar i{display:block;height:100%;border-radius:999px}
+tr.subrow td{padding-top:8px;padding-bottom:8px;font-size:13px}
+tr.subrow td.name{color:var(--gold-dim);font-weight:400;padding-left:22px}
+.cc .rv{display:flex;gap:24px;margin-top:12px;padding:10px 14px;border-radius:12px;background:var(--green-bg);border:1px solid #23472b}
+.cc .rv b{display:block;font-family:'DM Mono',monospace;font-size:17px;font-weight:500}
+.cc .rv span{font-size:11.5px;color:var(--muted)}
 footer{margin-top:60px;color:var(--faint);font-size:12.5px;text-align:center;font-family:'DM Mono',monospace}
 
 @media (max-width:1100px){.kpis{grid-template-columns:repeat(2,1fr)}.lcomp{grid-template-columns:repeat(2,1fr)}.ins{grid-template-columns:1fr}}
@@ -232,13 +240,13 @@ const RAW = [
   // ---- VENTAS DIRECTAS / PRODUCTOS ----
   {id:'120245625269060482',acct:A2,cat:'ventas',grp:'metabolica',name:'💰 Ventas | Mujer Metabólica | 04 al 10 Junio 2026',short:'Mujer Metabólica · Jun',temp:'tibio',obj:'Ventas',start:'2026-06-04',stop:'2026-06-10',rt:'compras',f:[81.87,3,29883,10226,1041,482,417,23258,2727,8113]},
   {id:'120248763048770482',acct:A2,cat:'ventas',grp:'metabolica',name:'💰 Ventas | Mujer Metabólica | 07 al 10 Agosto 2026',short:'Mujer Metabólica · Ago',temp:'tibio',obj:'Ventas',start:'2026-08-07',stop:'2026-08-10',rt:'compras',f:[91.32,4,29209,10710,1015,517,478,23951,2722,7731]},
-  {id:'120249161242240482',acct:A2,cat:'ventas',grp:'airfryer',name:'FRÍO ❄️ Recetas Airfryer | 26-08-2026',short:'Frío · Airfryer',temp:'frio',obj:'Ventas',start:'2026-08-26',stop:null,rt:'compras',f:[368.91,75,107197,32938,3902,2079,1728,50891,5876,19350]},
-  {id:'120249160762710482',acct:A2,cat:'ventas',grp:'airfryer',name:'TEMPLADO 🔥 Recetas Airfryer | 26-08-2026',short:'Templado · Airfryer',temp:'tibio',obj:'Ventas',start:'2026-08-26',stop:null,rt:'compras',f:[370.09,79,147215,34599,4043,2412,1973,85939,8495,27864]},
-  {id:'120249342485550482',acct:A2,cat:'ventas',grp:'airfryer',name:'FRÍO ❄️ Recetas Airfryer | 07-09-2026 MEX',short:'Frío · Airfryer MEX',temp:'frio',obj:'Ventas',start:'2026-09-07',stop:null,rt:'compras',f:[32.87,1,3086,2436,118,60,41,2689,241,1136]},
-  {id:'120249342515630482',acct:A2,cat:'ventas',grp:'airfryer',name:'FRÍO ❄️ Recetas Airfryer | 07-09-2026 COL',short:'Frío · Airfryer COL',temp:'frio',obj:'Ventas',start:'2026-09-07',stop:null,rt:'compras',f:[32.87,1,4187,3533,108,72,49,3740,307,1381]},
-  {id:'120249342557420482',acct:A2,cat:'ventas',grp:'airfryer',name:'FRÍO ❄️ Recetas Airfryer | 07-09-2026 USA',short:'Frío · Airfryer USA',temp:'frio',obj:'Ventas',start:'2026-09-07',stop:null,rt:'compras',f:[31.39,0,1131,866,68,33,27,1016,133,503]},
-  {id:'120249451368350482',acct:A2,cat:'ventas',grp:'batidos',name:'FRÍO ❄️ 27 Batidos | 15-09-2026',short:'Frío · 27 Batidos',temp:'frio',obj:'Ventas',start:'2026-09-15',stop:null,rt:'compras',f:[11.33,1,2976,1643,93,41,32,0,0,52]},
-  {id:'120249450861160482',acct:A2,cat:'ventas',grp:'batidos',name:'TEMPLADO 🔥 27 Batidos | 15-09-2026',short:'Templado · 27 Batidos',temp:'tibio',obj:'Ventas',start:'2026-09-15',stop:null,rt:'compras',f:[11.31,1,4616,2431,81,33,21,0,0,42]},
+  {id:'120249161242240482',acct:A2,cat:'vsl',grp:'airfryer',name:'FRÍO ❄️ Recetas Airfryer | 26-08-2026',short:'Frío · Airfryer',temp:'frio',obj:'Ventas',start:'2026-08-26',stop:null,rt:'compras',f:[368.91,75,107197,32938,3902,2079,1728,50891,5876,19350]},
+  {id:'120249160762710482',acct:A2,cat:'vsl',grp:'airfryer',name:'TEMPLADO 🔥 Recetas Airfryer | 26-08-2026',short:'Templado · Airfryer',temp:'tibio',obj:'Ventas',start:'2026-08-26',stop:null,rt:'compras',f:[370.09,79,147215,34599,4043,2412,1973,85939,8495,27864]},
+  {id:'120249342485550482',acct:A2,cat:'vsl',grp:'airfryer',name:'FRÍO ❄️ Recetas Airfryer | 07-09-2026 MEX',short:'Frío · Airfryer MEX',temp:'frio',obj:'Ventas',start:'2026-09-07',stop:null,rt:'compras',f:[32.87,1,3086,2436,118,60,41,2689,241,1136]},
+  {id:'120249342515630482',acct:A2,cat:'vsl',grp:'airfryer',name:'FRÍO ❄️ Recetas Airfryer | 07-09-2026 COL',short:'Frío · Airfryer COL',temp:'frio',obj:'Ventas',start:'2026-09-07',stop:null,rt:'compras',f:[32.87,1,4187,3533,108,72,49,3740,307,1381]},
+  {id:'120249342557420482',acct:A2,cat:'vsl',grp:'airfryer',name:'FRÍO ❄️ Recetas Airfryer | 07-09-2026 USA',short:'Frío · Airfryer USA',temp:'frio',obj:'Ventas',start:'2026-09-07',stop:null,rt:'compras',f:[31.39,0,1131,866,68,33,27,1016,133,503]},
+  {id:'120249451368350482',acct:A2,cat:'vsl',grp:'batidos',name:'FRÍO ❄️ 27 Batidos | 15-09-2026',short:'Frío · 27 Batidos',temp:'frio',obj:'Ventas',start:'2026-09-15',stop:null,rt:'compras',f:[11.33,1,2976,1643,93,41,32,0,0,52]},
+  {id:'120249450861160482',acct:A2,cat:'vsl',grp:'batidos',name:'TEMPLADO 🔥 27 Batidos | 15-09-2026',short:'Templado · 27 Batidos',temp:'tibio',obj:'Ventas',start:'2026-09-15',stop:null,rt:'compras',f:[11.31,1,4616,2431,81,33,21,0,0,42]},
 ];
 const KEYS=['spend','res','imp','reach','clicks','link','lpv','vplay','thru','eng'];
 const C = RAW.map(r=>{const o={...r};KEYS.forEach((k,i)=>o[k]=r.f[i]);return o});
@@ -249,11 +257,11 @@ const CATS = {
   lanz:{key:'lanzamientos',label:'Lanzamientos',icon:'🚀',color:'var(--orange)',bg:'var(--orange-bg)',bd:'#5b3d12',badge:'Captación',
         desc:'4 lanzamientos: Abril (leads), Código Metabólico (registros), Agosto (leads) y Mujer Liviana (venta de entradas). Embudo completo y comparativo lanzamiento por lanzamiento.'},
   vsl:{key:'vsl',label:'VSLs',icon:'🎬',color:'var(--mauve)',bg:'var(--mauve-bg)',bd:'#4a2c3a',badge:'Video ventas',
-        desc:'Campañas de video de ventas: VSL 7 días, VSL Sin Azúcar (I y II) y VSL RRM, segmentadas en tráfico frío y tibio/templado.'},
+        desc:'Campañas de video de ventas: VSL 7 días, VSL Sin Azúcar (I y II), VSL RRM, VSL 50 Recetas Airfryer y VSL 27 Batidos, segmentadas en tráfico frío y tibio/templado.'},
   aw:{key:'awareness',label:'Awareness',icon:'📈',color:'var(--teal)',bg:'var(--teal-bg)',bd:'#24453c',badge:'AW',
         desc:'Campañas NSN Seguidores (USA + CR): visitas al perfil de Instagram, reproducción de video y embudo de alcance.'},
   ventas:{key:'ventas',label:'Ventas directas',icon:'🛒',color:'var(--blue)',bg:'#111a26',bd:'#253a5a',badge:'Productos',
-        desc:'Venta de productos sin VSL: Mujer Metabólica, Recetas Airfryer (CR, MEX, COL, USA) y 27 Batidos.'},
+        desc:'Venta directa de producto sin VSL: Mujer Metabólica (Junio y Agosto 2026).'},
 };
 const LAUNCHES = {
   abril:{label:'Abril 2026',sub:'10 – 20 Abr · Leads',acct:A1},
@@ -261,8 +269,30 @@ const LAUNCHES = {
   agosto:{label:'Agosto 2026',sub:'24 Jul – 04 Ago · Leads',acct:A2},
   liviana:{label:'Mujer Liviana',sub:'Desde 11 Sep · Entradas',acct:A2},
 };
-const VGROUPS = {'7dias':'VSL 7 días','sinazucar':'VSL Sin Azúcar','rrm':'VSL RRM'};
-const SGROUPS = {metabolica:'Mujer Metabólica',airfryer:'Recetas Airfryer',batidos:'27 Batidos'};
+const VGROUPS = {'7dias':'VSL 7 días','sinazucar':'VSL Sin Azúcar','rrm':'VSL RRM','airfryer':'VSL 50 Recetas Airfryer','batidos':'VSL 27 Batidos'};
+const SGROUPS = null;
+
+/* ---------------- INGRESOS (precios reportados por el cliente) ----------------
+   unit: precio por venta (USD). Ingreso por campaña = compras/entradas atribuidas por Meta × precio.
+   PRODUCTS: ventas reales totales reportadas por el cliente (incluye ventas fuera de la pauta). */
+const PRICE = {liviana:9, airfryer:12.97, batidos:9};
+const PRODUCTS = [
+  {k:'liviana',cat:'lanz',label:'Lanzamiento Mujer Liviana (Septiembre)',lines:[
+     {l:'Entradas vendidas por pauta',q:195,p:9,meta:195},
+     {l:'Ventas del programa (cierre del lanzamiento)',q:35,p:57,meta:null}]},
+  {k:'airfryer',cat:'vsl',label:'VSL 50 Recetas Airfryer',lines:[{l:'Ventas',q:187,p:12.97,meta:156}]},
+  {k:'batidos',cat:'vsl',label:'VSL 27 Batidos',lines:[{l:'Ventas',q:15,p:9,meta:2}]},
+];
+PRODUCTS.forEach(P=>{
+  const camps=C.filter(c=>c.grp===P.k);
+  P.spend=camps.reduce((a,c)=>a+c.spend,0);
+  P.rev=P.lines.reduce((a,x)=>a+x.q*x.p,0);
+  P.sales=P.lines.reduce((a,x)=>a+x.q,0);
+  P.revPauta=camps.reduce((a,c)=>a+c.res*(PRICE[c.grp]||0),0);
+  P.roas=P.spend?P.rev/P.spend:0;
+  P.n=camps.length;
+});
+C.forEach(c=>{c.rev=PRICE[c.grp]!=null?c.res*PRICE[c.grp]:null;c.roas=c.rev!=null&&c.spend?c.rev/c.spend:null});
 
 /* ---------------- helpers ---------------- */
 const nf=(n,d=0)=>{if(n==null||isNaN(n))return '—';const s=Math.abs(n).toFixed(d).split('.');s[0]=s[0].replace(/\B(?=(\d{3})+(?!\d))/g,'.');return (n<0?'-':'')+s.join(',')};
@@ -331,14 +361,15 @@ function table(list,{showCat=false,note='',resCol='Resultados'}={}){
   const id='t'+(tableId++);
   const cols=[
     {k:'name',l:'Campaña'},{k:'start',l:'Fechas'},{k:'res',l:resCol},{k:'cpr',l:'Costo x resultado'},{k:'spend',l:'Gastado'},
-    {k:'imp',l:'Impresiones'},{k:'reach',l:'Alcance'},{k:'link',l:'Clics enlace'},{k:'ctr',l:'CTR'},{k:'cpm',l:'CPM'}];
+    {k:'rev',l:'Ingresos pauta'},{k:'roas',l:'ROAS'},{k:'imp',l:'Impresiones'},{k:'reach',l:'Alcance'},{k:'link',l:'Clics enlace'},{k:'ctr',l:'CTR'},{k:'cpm',l:'CPM'}];
   const rows=list.map(c=>({...c,cpr:cpr(c),ctr:c.imp?c.clicks/c.imp:0,cpm:c.imp?c.spend/c.imp*1000:0}));
   const crs=rows.map(r=>r.cpr).filter(x=>x!=null).sort((a,b)=>a-b);
   const med=crs.length?crs[Math.floor(crs.length/2)]:0;
   TABLES[id]={rows,cols,showCat,med,sort:{k:'spend',dir:-1}};
   const a=agg(list);
+  const withRev=list.filter(c=>c.rev!=null), revT=withRev.length?sum(withRev,'rev'):null, spT=sum(withRev,'spend');
   return `<div class="tcard"><table id="${id}"><thead><tr>${cols.map(c=>`<th data-k="${c.k}">${c.l}</th>`).join('')}</tr></thead><tbody></tbody>
-  <tfoot><tr class="total"><td class="name">TOTAL · ${a.n} campañas</td><td></td><td class="res"><b>${nf(a.res)}</b></td><td>${a.cpr!=null?money(a.cpr):'—'}</td><td>${money(a.spend)}</td><td>${nf(a.imp)}</td><td>${nf(a.reach)}</td><td>${nf(a.link)}</td><td>${pct(a.ctr,2)}</td><td>${money(a.cpm)}</td></tr></tfoot></table>
+  <tfoot><tr class="total"><td class="name">TOTAL · ${a.n} campañas</td><td></td><td class="res"><b>${nf(a.res)}</b></td><td>${a.cpr!=null?money(a.cpr):'—'}</td><td>${money(a.spend)}</td><td style="color:var(--green)">${revT!=null?money(revT):'—'}</td><td style="color:${roasColor(revT!=null?revT/spT:null)}">${revT!=null?roasTxt(revT/spT):'—'}</td><td>${nf(a.imp)}</td><td>${nf(a.reach)}</td><td>${nf(a.link)}</td><td>${pct(a.ctr,2)}</td><td>${money(a.cpm)}</td></tr></tfoot></table>
   ${note?`<div class="note">${note}</div>`:''}</div>`;
 }
 const TABLES={};
@@ -352,7 +383,7 @@ function renderTable(id){
     <td>${range(r)}</td>
     <td class="res"><b style="color:${col}">${nf(r.res)}</b><span>${RT[r.rt]}</span></td>
     <td style="color:${col}">${r.cpr!=null?money(r.cpr):'—'}</td>
-    <td style="color:var(--gold)">${money(r.spend)}</td><td>${nf(r.imp)}</td><td>${nf(r.reach)}</td><td>${nf(r.link)}</td><td>${pct(r.ctr,2)}</td><td>${money(r.cpm)}</td></tr>`}).join('');
+    <td style="color:var(--gold)">${money(r.spend)}</td><td style="color:var(--green)">${r.rev!=null?money(r.rev):'—'}</td><td style="color:${roasColor(r.roas)}">${roasTxt(r.roas)}</td><td>${nf(r.imp)}</td><td>${nf(r.reach)}</td><td>${nf(r.link)}</td><td>${pct(r.ctr,2)}</td><td>${money(r.cpm)}</td></tr>`}).join('');
   document.querySelectorAll(`#${id} th`).forEach(th=>th.classList.toggle('sorted',th.dataset.k===k));
 }
 document.addEventListener('click',e=>{
@@ -375,6 +406,7 @@ function ccard(c,list,tag){
     <h4>${c.name}</h4><div class="when">${range(c)}${label?' · '+label:''}</div>
     <div class="big" style="color:${color}">${v!=null?money(v):'—'}</div><div class="bl">costo por ${RT1[c.rt]}</div>
     <div class="mini"><div><b style="color:${color}">${nf(c.res)}</b><span>${RT[c.rt]}</span></div><div><b>${money(c.spend)}</b><span>gastado</span></div><div><b>${nf(c.imp)}</b><span>impres.</span></div><div><b>${nf(c.reach)}</b><span>alcance</span></div></div>
+    ${c.rev!=null?`<div class="rv"><div><b style="color:var(--green)">${money(c.rev)}</b><span>ingresos atribuidos</span></div><div><b style="color:${roasColor(c.roas)}">${roasTxt(c.roas)}</b><span>ROAS</span></div><div><b style="color:var(--gold-dim)">${money(PRICE[c.grp])}</b><span>precio por venta</span></div></div>`:''}
     <div class="bars">
       ${bar('Inversión',c.spend,maxSpend,'var(--orange)',pct(c.spend/sum(list,'spend')))}
       ${bar('Hook (play/imp)',c.vplay,c.imp,'var(--mauve)',c.imp?pct(c.vplay/c.imp):'—')}
@@ -382,6 +414,33 @@ function ccard(c,list,tag){
       ${bar('CTR (todos)',c.clicks,c.imp*.15,'var(--teal)',c.imp?pct(c.clicks/c.imp,2):'—')}
     </div>
   </div>`;
+}
+
+const roasColor=r=>r==null?'var(--faint)':r>=2?'var(--green)':r>=1?'var(--gold)':'var(--red)';
+const roasTxt=r=>r==null?'—':nf(r,2)+'x';
+function revenueBlock(prods,title){
+  if(!prods.length) return '';
+  const rev=prods.reduce((a,p)=>a+p.rev,0), sp=prods.reduce((a,p)=>a+p.spend,0), pa=prods.reduce((a,p)=>a+p.revPauta,0);
+  const sales=prods.reduce((a,p)=>a+p.sales,0), roas=sp?rev/sp:0, profit=rev-sp;
+  let h=`<div class="sec">💵 ${title}</div>`;
+  h+=kpis([
+    {v:money(rev),l:'Ingresos totales',d:`${nf(sales)} ventas × precio de venta`,c:'var(--green)'},
+    {v:roasTxt(roas),l:'ROAS',d:'ingresos ÷ inversión publicitaria',c:roasColor(roas)},
+    {v:money(profit),l:profit>=0?'Ganancia sobre pauta':'Pérdida sobre pauta',d:`ingresos − ${money(sp)} invertidos`,c:profit>=0?'var(--green)':'var(--red)'},
+    {v:money(pa),l:'Ingresos atribuidos a pauta',d:`ventas registradas por Meta · ROAS ${roasTxt(sp?pa/sp:null)}`,c:'var(--gold)'},
+  ]);
+  const max=Math.max(...prods.map(p=>Math.max(p.rev,p.spend)));
+  h+=`<div class="tcard" style="margin-top:18px"><table class="rev"><thead><tr><th>Producto / concepto</th><th>Ventas</th><th>Precio</th><th>Ingresos</th><th>Inversión</th><th>Costo por venta</th><th>ROAS</th><th style="text-align:left;min-width:180px">Ingresos vs inversión</th></tr></thead><tbody>`;
+  prods.forEach(p=>{
+    h+=`<tr><td class="name">${p.label}<small>${p.n} campaña${p.n>1?'s':''} · ventas atribuidas por Meta: ${nf(p.lines.reduce((a,x)=>a+(x.meta||0),0))}</small></td>
+      <td>${nf(p.sales)}</td><td>${p.lines.length>1?'—':money(p.lines[0].p)}</td><td style="color:var(--green)">${money(p.rev)}</td><td style="color:var(--orange)">${money(p.spend)}</td>
+      <td>${money(p.spend/p.sales)}</td><td style="color:${roasColor(p.roas)};font-weight:500">${roasTxt(p.roas)}</td>
+      <td style="text-align:left"><div class="rvbar"><i style="width:${p.rev/max*100}%;background:var(--green)"></i></div><div class="rvbar"><i style="width:${p.spend/max*100}%;background:var(--orange)"></i></div></td></tr>`;
+    if(p.lines.length>1) p.lines.forEach(x=>{h+=`<tr class="subrow"><td class="name">↳ ${x.l}<small>${x.meta!=null?'atribuidas por Meta: '+nf(x.meta):'venta del programa (no atribuible por campaña)'}</small></td><td>${nf(x.q)}</td><td>${money(x.p)}</td><td style="color:var(--green)">${money(x.q*x.p)}</td><td></td><td></td><td></td><td></td></tr>`});
+  });
+  h+=`</tbody><tfoot><tr class="total"><td class="name">TOTAL</td><td>${nf(sales)}</td><td></td><td style="color:var(--green)">${money(rev)}</td><td>${money(sp)}</td><td>${money(sp/sales)}</td><td style="color:${roasColor(roas)}">${roasTxt(roas)}</td><td></td></tr></tfoot></table>
+  <div class="note">Ingresos = ventas reales reportadas × precio de venta (Mujer Liviana: entradas $9 · programa $57 · Airfryer $12,97 · 27 Batidos $9). “Atribuidos a pauta” usa solo las compras que registró el píxel de Meta. <span style="color:var(--green)">■</span> ingresos <span style="color:var(--orange)">■</span> inversión</div></div>`;
+  return h;
 }
 
 function subtabs(name,opts,active){return `<div class="subtabs" data-group="${name}">${opts.map(o=>`<button class="subtab${o.k===active?' active':''}" data-k="${o.k}">${o.l}</button>`).join('')}</div>`}
@@ -397,12 +456,13 @@ function renderResumen(){
   const vis=sum(C.filter(c=>c.rt==='visitas'),'res');
   const catOrder=['lanz','vsl','aw','ventas'];
   const tot=a.spend;
-  let h=`<div class="sec">Resumen general · 2 cuentas publicitarias · ${C.length} campañas</div>`;
+  let h=revenueBlock(PRODUCTS,'Ingresos · productos con precio de venta reportado');
+  h+=`<div class="sec">Resumen general · 2 cuentas publicitarias · ${C.length} campañas</div>`;
   h+=kpis([
     {v:money(a.spend),l:'Inversión total',d:`${C.length} campañas con inversión`,c:'var(--orange)'},
     {v:nf(leads),l:'Leads (lanzamientos)',d:`CPL ${money(sum(C.filter(c=>c.rt==='leads'),'spend')/leads)}`,c:'var(--green)'},
     {v:nf(regs),l:'Registros Código Metabólico',d:`Costo ${money(sum(C.filter(c=>c.rt==='registros'),'spend')/regs)} c/u`,c:'var(--green)'},
-    {v:nf(buys),l:'Compras / entradas',d:'VSLs, productos y entradas Mujer Liviana',c:'var(--gold)'},
+    {v:nf(buys),l:'Compras / entradas (Meta)',d:'VSLs, productos y entradas Mujer Liviana',c:'var(--gold)'},
     {v:nf(a.imp),l:'Impresiones',d:`CPM promedio ${money(a.cpm)}`},
     {v:nf(a.clicks),l:'Clics (todos)',d:`${nf(a.link)} clics en el enlace · CTR ${pct(a.ctr,2)}`,c:'var(--teal)'},
     {v:nf(a.vplay),l:'Reproducciones de video',d:`${nf(a.thru)} ThruPlays (15s+)`,c:'var(--mauve)'},
@@ -417,12 +477,12 @@ function renderResumen(){
     h+=`<div class="cat" style="--c:${K.color}" data-go="${K.key}"><span class="open">abrir →</span>
       <h3>${K.icon} ${K.label} <span class="badge" style="color:${K.color};background:${K.bg};border-color:${K.bd}">${K.badge}</span></h3>
       <p>${K.desc}</p>
-      <div class="nums"><div><b style="color:var(--orange)">${money(g.spend)}</b><span>Invertido</span></div><div><b style="color:${resMain.c}">${resMain.v}</b><span>${resMain.l}</span></div><div><b style="color:var(--gold)">${g.cpr!=null?money(g.cpr):'—'}</b><span>Costo x resultado</span></div><div><b style="color:var(--gold-dim)">${l.length}</b><span>Campañas</span></div></div>
+      <div class="nums"><div><b style="color:var(--orange)">${money(g.spend)}</b><span>Invertido</span></div><div><b style="color:${resMain.c}">${resMain.v}</b><span>${resMain.l}</span></div><div><b style="color:var(--gold)">${g.cpr!=null?money(g.cpr):'—'}</b><span>Costo x resultado</span></div>${(()=>{const ps=PRODUCTS.filter(p=>p.cat===k);if(!ps.length)return `<div><b style="color:var(--gold-dim)">${l.length}</b><span>Campañas</span></div>`;const r=ps.reduce((x,p)=>x+p.rev,0),sp=ps.reduce((x,p)=>x+p.spend,0);return `<div><b style="color:var(--green)">${money(r)}</b><span>Ingresos</span></div><div><b style="color:${roasColor(r/sp)}">${roasTxt(r/sp)}</b><span>ROAS</span></div>`})()}</div>
     </div>`;
   });
   h+=`</div>`;
   h+=`<div class="sec">Todas las campañas · desglose completo</div>`;
-  h+=table(C,{showCat:true,note:'Clasificación: 🚀 Lanzamientos (captación de leads, registros y venta de entradas de lanzamiento) · 🎬 VSL (campañas con video de ventas) · 📈 Awareness (seguidores / visitas al perfil) · 🛒 Ventas directas (productos sin VSL). De la cuenta 565816124663247 se incluyen solo las campañas del Lanzamiento Abril 2026 (Tráfico Tibio y Tráfico Frío). De la cuenta 1697488988267910 se incluyen todas las campañas con inversión. El alcance total es la suma por campaña (no deduplicado).'});
+  h+=table(C,{showCat:true,note:'Clasificación: 🚀 Lanzamientos (captación de leads, registros y venta de entradas de lanzamiento) · 🎬 VSL (campañas con video de ventas, incluye 50 Recetas Airfryer y 27 Batidos) · 📈 Awareness (seguidores / visitas al perfil) · 🛒 Ventas directas (productos sin VSL). Ingresos pauta = compras atribuidas por Meta × precio; “—” = sin precio de venta reportado. De la cuenta 565816124663247 se incluyen solo las campañas del Lanzamiento Abril 2026 (Tráfico Tibio y Tráfico Frío). De la cuenta 1697488988267910 se incluyen todas las campañas con inversión. El alcance total es la suma por campaña (no deduplicado).'});
   el('p-resumen').innerHTML=h;
 }
 
@@ -434,7 +494,8 @@ function renderLanz(sel='todos'){
     const unit=k==='liviana'?'entradas':k==='codigo'?'registros':'leads';
     h+=`<div class="lc" data-sub="${k}" style="${sel===k?'border-color:var(--gold-dim)':''}"><div class="lt">${L.label}</div><div class="ld">${L.sub}</div>
       <div class="lv" style="color:var(--green)">${nf(g.res)}</div><div class="ll">${unit}</div>
-      <div class="lr"><div>${money(g.spend)}<span>invertido</span></div><div style="text-align:right">${money(g.cpr)}<span>costo / ${unit.replace(/s$/,'')}</span></div></div></div>`;
+      <div class="lr"><div>${money(g.spend)}<span>invertido</span></div><div style="text-align:right">${money(g.cpr)}<span>costo / ${unit.replace(/s$/,'')}</span></div></div>
+      ${(()=>{const P=PRODUCTS.find(p=>p.k===k);return P?`<div class="lr" style="color:var(--green)"><div>${money(P.rev)}<span>ingresos</span></div><div style="text-align:right;color:${roasColor(P.roas)}">${roasTxt(P.roas)}<span>ROAS</span></div></div>`:''})()}</div>`;
   });
   h+=`</div>`;
   h+=`<div class="sec" style="margin-top:36px">Ver lanzamiento</div>`;
@@ -443,7 +504,8 @@ function renderLanz(sel='todos'){
   const a=agg(list);
   const isL=sel==='abril'||sel==='agosto', unit=sel==='liviana'?'entrada':sel==='codigo'?'registro':isL?'lead':'resultado';
   const resLabel=sel==='todos'?'Resultados (leads + registros + entradas)':sel==='liviana'?'Entradas vendidas':sel==='codigo'?'Registros':'Leads generados';
-  h+=`<div class="sec">Resumen · ${sel==='todos'?'todos los lanzamientos':LAUNCHES[sel].label+' · '+LAUNCHES[sel].sub}</div>`;
+  if(sel==='liviana'||sel==='todos') h+=revenueBlock(PRODUCTS.filter(p=>p.k==='liviana'),'Ingresos · Lanzamiento Mujer Liviana');
+  h+=`<div class="sec">Métricas Meta Ads · ${sel==='todos'?'todos los lanzamientos':LAUNCHES[sel].label+' · '+LAUNCHES[sel].sub}</div>`;
   h+=stdKpis(a,resLabel);
   h+=`<div class="sec">Embudo de conversión · métricas Meta Ads</div>`;
   h+=funnel(a,{label:sel==='todos'?'Resultados · leads, registros y entradas':resLabel,unit,lpv:true});
@@ -453,7 +515,7 @@ function renderLanz(sel='todos'){
     abril:'Cuenta 565816124663247. Solo se incluyen las 2 campañas del Lanzamiento Abril 2026 (🟡 Tráfico Tibio y 🔵 Tráfico Frío).',
     codigo:'Campañas con objetivo Ventas: Meta reporta el resultado como “compra en el sitio web”. Por su costo (~$0,26–0,45) corresponden a registros de bajo valor / gratuitos del lanzamiento.',
     agosto:'Las 4 campañas de captación del Lanzamiento Agosto. Se excluyen las campañas NSN Seguidores (ver pestaña Awareness).',
-    liviana:'Venta de entradas al lanzamiento Mujer Liviana, campañas iniciadas el 11/09/2026 sin fecha de fin programada.'};
+    liviana:'Venta de entradas ($9) al lanzamiento Mujer Liviana, campañas iniciadas el 11/09/2026. Los ingresos por campaña solo cuentan las entradas; las 35 ventas del programa ($57) se suman en el bloque de ingresos del lanzamiento.'};
   h+=table(list,{note:notes[sel],resCol:'Resultados'});
   h+=`<div class="sec">Campañas · costo por resultado</div><div class="ccards">${list.map(c=>ccard(c,list,sel==='todos'?LAUNCHES[c.grp].label:'')).join('')}</div>`;
   el('p-lanzamientos').innerHTML=h;
@@ -467,21 +529,26 @@ function renderGeneric(catKey,panel,groups,sel='todos'){
   const isAw=catKey==='aw';
   let h=`<div class="sec">${K.icon} ${K.label} · ${K.badge}</div><p class="intro">${K.desc}</p>`;
   if(groups) h+=subtabs(catKey,[{k:'todos',l:'Todas'},...Object.entries(groups).map(([k,l])=>({k,l}))],sel);
+  const prods=PRODUCTS.filter(p=>p.cat===catKey&&(sel==='todos'||p.k===sel));
+  h+=revenueBlock(prods,`Ingresos · ${sel==='todos'?K.label:groups[sel]}`);
+  if(catKey==='vsl'&&(sel==='todos'||!prods.length)) h+=`<p class="note" style="margin:14px 0 0">Sin precio de venta reportado aún para VSL 7 días, VSL Sin Azúcar y VSL RRM: sus campañas no suman ingresos.</p>`;
+  h+=`<div class="sec">Métricas Meta Ads</div>`;
   h+=stdKpis(a,isAw?'Visitas al perfil IG':'Compras',isAw?'var(--teal)':'var(--green)');
   if(groups && sel==='todos'){
     h+=`<div class="sec">Comparativo por ${catKey==='vsl'?'VSL':'producto'}</div><div class="lcomp">`;
     Object.entries(groups).forEach(([k,l])=>{const g=agg(all.filter(c=>c.grp===k));
       h+=`<div class="lc" data-sub="${k}" data-group="${catKey}"><div class="lt">${l}</div><div class="ld">${g.n} campañas</div><div class="lv" style="color:var(--green)">${nf(g.res)}</div><div class="ll">compras</div>
-      <div class="lr"><div>${money(g.spend)}<span>invertido</span></div><div style="text-align:right">${g.cpr!=null?money(g.cpr):'—'}<span>costo / compra</span></div></div></div>`});
+      <div class="lr"><div>${money(g.spend)}<span>invertido</span></div><div style="text-align:right">${g.cpr!=null?money(g.cpr):'—'}<span>costo / compra</span></div></div>
+      ${(()=>{const P=PRODUCTS.find(p=>p.k===k);return P?`<div class="lr" style="color:var(--green)"><div>${money(P.rev)}<span>ingresos · ${nf(P.sales)} ventas</span></div><div style="text-align:right;color:${roasColor(P.roas)}">${roasTxt(P.roas)}<span>ROAS</span></div></div>`:'<div class="lr"><div style="color:var(--faint)">sin precio<span>ingresos pendientes</span></div></div>'})()}</div>`});
     h+=`</div>`;
   }
   h+=`<div class="sec">Embudo de conversión · métricas Meta Ads</div>`;
   h+=funnel(a,isAw?{label:'Visitas al perfil de Instagram',unit:'visita',dropLink:'no sale al perfil'}:{label:'Compras en el sitio web',unit:'compra',lpv:true});
   h+=`<div class="sec">Resumen campañas · desglose campaña por campaña</div>`;
   const notes={
-    vsl:'Campañas con video de ventas (VSL) y objetivo Ventas. “Frío/Tibio/Templado” indica la temperatura del público. Costo por compra calculado sobre compras web del píxel.',
+    vsl:'Campañas con video de ventas (VSL) y objetivo Ventas. “Frío/Tibio/Templado” indica la temperatura del público. Costo por compra calculado sobre compras web del píxel. Las campañas Airfryer del 07/09 son pruebas por país (MEX, COL, USA). Ingresos por campaña = compras atribuidas por Meta × precio de venta.',
     aw:'Objetivo Tráfico hacia el perfil de Instagram; el resultado es “visita al perfil”. Los clics en el enlace incluyen los clics hacia el perfil.',
-    ventas:'Campañas de venta directa de productos (sin VSL). Las campañas de Airfryer del 07/09 son pruebas por país (MEX, COL, USA).'};
+    ventas:'Campañas de venta directa de producto (sin VSL). Aún no hay precio de venta cargado para Mujer Metabólica, por eso no se calculan ingresos.'};
   h+=table(list,{note:notes[catKey],resCol:isAw?'Visitas perfil':'Compras'});
   h+=`<div class="sec">Campañas · costo por resultado</div><div class="ccards">${list.map(c=>ccard(c,list,groups?groups[c.grp]:'')).join('')}</div>`;
   el(panel).innerHTML=h;
@@ -494,7 +561,7 @@ const TABS=[
   {k:'lanzamientos',l:'Lanzamientos',icon:'🚀',n:byCat('lanz').length,accent:'var(--orange)',r:s=>renderLanz(s)},
   {k:'vsl',l:'VSLs',icon:'🎬',n:byCat('vsl').length,accent:'var(--mauve)',r:s=>renderGeneric('vsl','p-vsl',VGROUPS,s)},
   {k:'awareness',l:'Awareness',icon:'📈',n:byCat('aw').length,accent:'var(--teal)',r:()=>renderGeneric('aw','p-awareness',null)},
-  {k:'ventas',l:'Ventas directas',icon:'🛒',n:byCat('ventas').length,accent:'var(--blue)',r:s=>renderGeneric('ventas','p-ventas',SGROUPS,s)},
+  {k:'ventas',l:'Ventas directas',icon:'🛒',n:byCat('ventas').length,accent:'var(--blue)',r:()=>renderGeneric('ventas','p-ventas',null)},
 ];
 el('tabs').innerHTML=TABS.map(t=>`<button class="tab" data-tab="${t.k}" style="--accent:${t.accent}">${t.icon} ${t.l}<span class="count">${t.n}</span></button>`).join('');
 
