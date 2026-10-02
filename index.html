@@ -157,7 +157,7 @@ tbody tr:hover td{background:rgba(255,255,255,.015)}
 .in{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--c);border-radius:14px;padding:18px 20px;font-size:14px;color:var(--gold-dim)}
 .in b{color:var(--gold);display:block;margin-bottom:6px;font-size:14.5px}
 
-table.rev{min-width:900px}
+table.rev{min-width:1050px}
 .rvbar{height:7px;background:var(--bg2);border-radius:999px;overflow:hidden;margin:3px 0}
 .rvbar i{display:block;height:100%;border-radius:999px}
 tr.subrow td{padding-top:8px;padding-bottom:8px;font-size:13px}
@@ -272,38 +272,36 @@ const LAUNCHES = {
 const VGROUPS = {'7dias':'VSL 7 días','sinazucar':'VSL Sin Azúcar','rrm':'VSL RRM','airfryer':'VSL 50 Recetas Airfryer','batidos':'VSL 27 Batidos'};
 const SGROUPS = null;
 
-/* ---------------- INGRESOS (precios reportados por el cliente) ----------------
+/* ---------------- INGRESOS (ventas reales de Hotmart × precio de venta) ----------------
    PRICE: precio por venta (USD) por grupo de campañas. Ingreso por campaña = compras/entradas atribuidas por Meta × precio.
-   PRODUCTS: grps = grupos de campañas cuya inversión se asigna al producto.
-   lines.q = ventas reales reportadas por el cliente; q:'meta' = se usan las compras registradas por Meta (sin total real reportado). */
+   PRODUCTS: un registro por producto de Hotmart. grps = grupos de campañas cuya inversión se asigna al producto.
+   lines.q = ventas reales (Hotmart); refund = tasa de reembolso en Hotmart. */
 const PRICE = {liviana:9, airfryer:12.97, batidos:9, '7dias':17, sinazucar:17, rrm:17, metabolica:57};
 const PRODUCTS = [
-  {k:'metabolica',cat:'lanz',also:['ventas'],grps:['abril','codigo','agosto','metabolica'],label:'Programa Mujer Metabólica · desde Abril 2026',
-   sub:'371 ventas totales − 35 asignadas al lanzamiento Mujer Liviana = 336<br>embudo: captación Abril + Código Metabólico + Agosto y campañas de venta',
-   lines:[{l:'Ventas del programa (sin las de Mujer Liviana)',q:336,p:57}]},
-  {k:'liviana',cat:'lanz',grps:['liviana'],label:'Lanzamiento Mujer Liviana (Septiembre)',lines:[
-     {l:'Entradas vendidas por pauta',q:195,p:9},
-     {l:'Ventas del programa Mujer Metabólica (cierre del lanzamiento)',q:35,p:57,noMeta:true}]},
-  {k:'airfryer',cat:'vsl',grps:['airfryer'],label:'VSL 50 Recetas Airfryer',lines:[{l:'Ventas',q:187,p:12.97}]},
-  {k:'batidos',cat:'vsl',grps:['batidos'],label:'VSL 27 Batidos',lines:[{l:'Ventas',q:15,p:9}]},
-  {k:'7dias',cat:'vsl',grps:['7dias'],label:'VSL 7 días sin azúcar',lines:[{l:'Ventas',q:'meta',p:17}]},
-  {k:'sinazucar',cat:'vsl',grps:['sinazucar'],label:'VSL Sin Azúcar (I y II)',lines:[{l:'Ventas',q:'meta',p:17}]},
-  {k:'rrm',cat:'vsl',grps:['rrm'],label:'VSL Reto Reset Metabólico (RRM)',lines:[{l:'Ventas',q:'meta',p:17}]},
+  {k:'metabolica',cat:'lanz',also:['ventas'],grps:['abril','codigo','agosto','metabolica'],label:'Mujer Metabólica',refund:0.3,
+   sub:'embudo: captación Abril + Código Metabólico + Agosto y campañas de venta',
+   lines:[{l:'Ventas',q:336,p:57}]},
+  {k:'liviana',cat:'lanz',grps:['liviana'],label:'Lanzamiento Mujer Liviana (Septiembre)',refund:0,lines:[
+     {l:'Entrada a Reto Mujer Liviana',q:211,p:9,refund:0},
+     {l:'Ventas Mujer Metabólica del cierre del lanzamiento',q:35,p:57,noMeta:true}]},
+  {k:'airfryer',cat:'vsl',grps:['airfryer'],label:'50 Recetas Fáciles y Saludables en Airfryer',refund:0.55,lines:[{l:'Ventas',q:181,p:12.97}]},
+  {k:'reto',cat:'vsl',grps:['7dias','sinazucar','rrm'],label:'Reto Reset Metabólico | 7 Días Sin Azúcar',refund:1.43,
+   sub:'VSL 7 días + VSL Sin Azúcar (I y II) + VSL RRM',lines:[{l:'Ventas',q:69,p:17}]},
+  {k:'batidos',cat:'vsl',grps:['batidos'],label:'27 Batidos para Desinflamar y Limpiar el Intestino',refund:0,lines:[{l:'Ventas',q:13,p:9}]},
+  {k:'comesinculpa',cat:null,grps:[],label:'Método Comé Sin Culpa',refund:0,sub:'sin campañas de pauta en el periodo (venta orgánica)',lines:[{l:'Ventas',q:6,p:17}]},
 ];
 C.forEach(c=>{c.rev=PRICE[c.grp]!=null?c.res*PRICE[c.grp]:null;c.roas=c.rev!=null&&c.spend?c.rev/c.spend:null});
 PRODUCTS.forEach(P=>{
   const camps=C.filter(c=>P.grps.includes(c.grp));
-  const metaSales=camps.filter(c=>c.rev!=null).reduce((a,c)=>a+c.res,0);
-  P.metaOnly=P.lines.some(x=>x.q==='meta');
-  P.lines.forEach(x=>{if(x.q==='meta')x.q=metaSales});
-  P.metaSales=metaSales;
+  P.metaSales=camps.filter(c=>c.rev!=null).reduce((a,c)=>a+c.res,0);
   P.spend=camps.reduce((a,c)=>a+c.spend,0);
   P.rev=P.lines.reduce((a,x)=>a+x.q*x.p,0);
   P.sales=P.lines.reduce((a,x)=>a+x.q,0);
   P.revPauta=camps.reduce((a,c)=>a+(c.rev||0),0);
-  P.roas=P.spend?P.rev/P.spend:0;
+  P.roas=P.spend?P.rev/P.spend:null;
   P.n=camps.length;
 });
+const productOf=g=>PRODUCTS.find(p=>p.grps.includes(g));
 const inTab=(P,cat)=>P.cat===cat||(P.also||[]).includes(cat);
 
 /* ---------------- helpers ---------------- */
@@ -442,16 +440,18 @@ function revenueBlock(prods,title){
     {v:money(pa),l:'Ingresos atribuidos a pauta',d:`ventas registradas por Meta · ROAS ${roasTxt(sp?pa/sp:null)}`,c:'var(--gold)'},
   ]);
   const max=Math.max(...prods.map(p=>Math.max(p.rev,p.spend)));
-  h+=`<div class="tcard" style="margin-top:18px"><table class="rev"><thead><tr><th>Producto / concepto</th><th>Ventas</th><th>Precio</th><th>Ingresos</th><th>Inversión</th><th>Costo por venta</th><th>ROAS</th><th style="text-align:left;min-width:180px">Ingresos vs inversión</th></tr></thead><tbody>`;
+  const cpv=p=>p.spend?money(p.spend/p.sales):'—';
+  h+=`<div class="tcard" style="margin-top:18px"><table class="rev"><thead><tr><th>Producto (Hotmart)</th><th>Inversión en pauta</th><th>Ventas</th><th>Precio</th><th>Ingresos</th><th>Costo por venta</th><th>ROAS</th><th>Reembolso</th><th style="text-align:left;min-width:170px">Ingresos vs inversión</th></tr></thead><tbody>`;
   prods.forEach(p=>{
-    h+=`<tr><td class="name">${p.label}<small>${p.sub?p.sub+'<br>':''}${p.n} campaña${p.n>1?'s':''} · ${p.metaOnly?'ventas = compras registradas por Meta (sin total real reportado)':'ventas registradas por Meta: '+nf(p.metaSales)}</small></td>
-      <td>${nf(p.sales)}</td><td>${p.lines.length>1?'—':money(p.lines[0].p)}</td><td style="color:var(--green)">${money(p.rev)}</td><td style="color:var(--orange)">${money(p.spend)}</td>
-      <td>${money(p.spend/p.sales)}</td><td style="color:${roasColor(p.roas)};font-weight:500">${roasTxt(p.roas)}</td>
+    h+=`<tr><td class="name">${p.label}<small>${p.sub||''}${p.n?`${p.sub?'<br>':''}${p.n} campaña${p.n>1?'s':''} · ventas registradas por Meta: ${nf(p.metaSales)}`:''}</small></td>
+      <td style="color:var(--orange)">${p.spend?money(p.spend):'—'}</td><td>${nf(p.sales)}</td><td>${p.lines.length>1?'—':money(p.lines[0].p)}</td><td style="color:var(--green)">${money(p.rev)}</td>
+      <td>${cpv(p)}</td><td style="color:${roasColor(p.roas)};font-weight:500">${p.roas==null?'orgánico':roasTxt(p.roas)}</td>
+      <td style="color:${p.refund>1?'var(--red)':'var(--gold-dim)'}">${nf(p.refund,p.refund%1?2:0).replace(/,?0+$/,'')||'0'}%</td>
       <td style="text-align:left"><div class="rvbar"><i style="width:${p.rev/max*100}%;background:var(--green)"></i></div><div class="rvbar"><i style="width:${p.spend/max*100}%;background:var(--orange)"></i></div></td></tr>`;
-    if(p.lines.length>1) p.lines.forEach(x=>{h+=`<tr class="subrow"><td class="name">↳ ${x.l}<small>${x.noMeta?'venta del programa (no atribuible por campaña)':'registradas por Meta: '+nf(p.metaSales)}</small></td><td>${nf(x.q)}</td><td>${money(x.p)}</td><td style="color:var(--green)">${money(x.q*x.p)}</td><td></td><td></td><td></td><td></td></tr>`});
+    if(p.lines.length>1) p.lines.forEach(x=>{h+=`<tr class="subrow"><td class="name">↳ ${x.l}<small>${x.noMeta?'parte del total de Mujer Metabólica (371 = 336 + 35)':'Hotmart · registradas por Meta: '+nf(p.metaSales)}</small></td><td></td><td>${nf(x.q)}</td><td>${money(x.p)}</td><td style="color:var(--green)">${money(x.q*x.p)}</td><td></td><td></td><td></td><td></td></tr>`});
   });
-  h+=`</tbody><tfoot><tr class="total"><td class="name">TOTAL</td><td>${nf(sales)}</td><td></td><td style="color:var(--green)">${money(rev)}</td><td>${money(sp)}</td><td>${money(sp/sales)}</td><td style="color:${roasColor(roas)}">${roasTxt(roas)}</td><td></td></tr></tfoot></table>
-  <div class="note">Ingresos = ventas reales reportadas × precio de venta (Mujer Metabólica $57 · Mujer Liviana: entradas $9, programa $57 · Airfryer $12,97 · 27 Batidos $9 · 7 días sin azúcar $17 · RRM $17). En los VSL de $17 sin total real reportado se usan las compras registradas por Meta. “Atribuidos a pauta” usa solo las compras que registró el píxel de Meta. Mujer Metabólica: las campañas de lanzamiento son etapas de captación; lleva 371 ventas totales, todas desde el primer lanzamiento (Abril 2026, campañas iniciadas el 10/04/2026; no hay campañas de lanzamiento anteriores en las cuentas): 35 se asignan al lanzamiento Mujer Liviana y las 336 restantes se comparan contra la inversión del resto del embudo (sin contar dos veces). <span style="color:var(--green)">■</span> ingresos <span style="color:var(--orange)">■</span> inversión</div></div>`;
+  h+=`</tbody><tfoot><tr class="total"><td class="name">TOTAL</td><td>${money(sp)}</td><td>${nf(sales)}</td><td></td><td style="color:var(--green)">${money(rev)}</td><td>${money(sp/sales)}</td><td style="color:${roasColor(roas)}">${roasTxt(roas)}</td><td></td><td></td></tr></tfoot></table>
+  <div class="note">Fuente de ventas: Hotmart (visualización por producto). Ingresos = ventas × precio de venta: Mujer Metabólica $57 · Entrada Reto Mujer Liviana $9 · 50 Recetas Airfryer $12,97 · Reto Reset Metabólico / 7 Días Sin Azúcar $17 · 27 Batidos $9 · Método Comé Sin Culpa $17. Las 35 ventas de Mujer Metabólica del cierre de Mujer Liviana completan las 371 ventas del programa (336 en Hotmart + 35), todas desde el primer lanzamiento (10/04/2026). Mujer Metabólica se compara contra la inversión de captación de los lanzamientos Abril, Código Metabólico y Agosto más sus campañas de venta. “Atribuidos a pauta” usa solo las compras que registró el píxel de Meta. <span style="color:var(--green)">■</span> ingresos <span style="color:var(--orange)">■</span> inversión</div></div>`;
   return h;
 }
 
@@ -468,7 +468,7 @@ function renderResumen(){
   const vis=sum(C.filter(c=>c.rt==='visitas'),'res');
   const catOrder=['lanz','vsl','aw','ventas'];
   const tot=a.spend;
-  let h=revenueBlock(PRODUCTS,'Ingresos · productos con precio de venta reportado');
+  let h=revenueBlock(PRODUCTS,'Ventas e ingresos por producto · Hotmart');
   h+=`<div class="sec">Resumen general · 2 cuentas publicitarias · ${C.length} campañas</div>`;
   h+=kpis([
     {v:money(a.spend),l:'Inversión total',d:`${C.length} campañas con inversión`,c:'var(--orange)'},
@@ -551,7 +551,7 @@ function renderGeneric(catKey,panel,groups,sel='todos'){
     Object.entries(groups).forEach(([k,l])=>{const g=agg(all.filter(c=>c.grp===k));
       h+=`<div class="lc" data-sub="${k}" data-group="${catKey}"><div class="lt">${l}</div><div class="ld">${g.n} campañas</div><div class="lv" style="color:var(--green)">${nf(g.res)}</div><div class="ll">compras</div>
       <div class="lr"><div>${money(g.spend)}<span>invertido</span></div><div style="text-align:right">${g.cpr!=null?money(g.cpr):'—'}<span>costo / compra</span></div></div>
-      ${(()=>{const P=PRODUCTS.find(p=>p.k===k);return P?`<div class="lr" style="color:var(--green)"><div>${money(P.rev)}<span>ingresos · ${nf(P.sales)} ventas</span></div><div style="text-align:right;color:${roasColor(P.roas)}">${roasTxt(P.roas)}<span>ROAS</span></div></div>`:'<div class="lr"><div style="color:var(--faint)">sin precio<span>ingresos pendientes</span></div></div>'})()}</div>`});
+      ${(()=>{const P=productOf(k);return P?`<div class="lr" style="color:var(--green)"><div>${money(P.rev)}<span>ingresos · ${nf(P.sales)} ventas${P.grps.length>1?' (producto compartido)':''}</span></div><div style="text-align:right;color:${roasColor(P.roas)}">${roasTxt(P.roas)}<span>ROAS</span></div></div>`:'<div class="lr"><div style="color:var(--faint)">sin precio<span>ingresos pendientes</span></div></div>'})()}</div>`});
     h+=`</div>`;
   }
   h+=`<div class="sec">Embudo de conversión · métricas Meta Ads</div>`;
