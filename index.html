@@ -261,7 +261,7 @@ const CATS = {
   aw:{key:'awareness',label:'Awareness',icon:'📈',color:'var(--teal)',bg:'var(--teal-bg)',bd:'#24453c',badge:'AW',
         desc:'Campañas NSN Seguidores (USA + CR): visitas al perfil de Instagram, reproducción de video y embudo de alcance.'},
   ventas:{key:'ventas',label:'Ventas directas',icon:'🛒',color:'var(--blue)',bg:'#111a26',bd:'#253a5a',badge:'Productos',
-        desc:'Venta directa de producto sin VSL: Mujer Metabólica (Junio y Agosto 2026).'},
+        desc:'Venta directa del programa Mujer Metabólica ($57) tras los lanzamientos de Mayo y Agosto. 357 ventas históricas del programa.'},
 };
 const LAUNCHES = {
   abril:{label:'Abril 2026',sub:'10 – 20 Abr · Leads',acct:A1},
@@ -273,26 +273,38 @@ const VGROUPS = {'7dias':'VSL 7 días','sinazucar':'VSL Sin Azúcar','rrm':'VSL 
 const SGROUPS = null;
 
 /* ---------------- INGRESOS (precios reportados por el cliente) ----------------
-   unit: precio por venta (USD). Ingreso por campaña = compras/entradas atribuidas por Meta × precio.
-   PRODUCTS: ventas reales totales reportadas por el cliente (incluye ventas fuera de la pauta). */
-const PRICE = {liviana:9, airfryer:12.97, batidos:9};
+   PRICE: precio por venta (USD) por grupo de campañas. Ingreso por campaña = compras/entradas atribuidas por Meta × precio.
+   PRODUCTS: grps = grupos de campañas cuya inversión se asigna al producto.
+   lines.q = ventas reales reportadas por el cliente; q:'meta' = se usan las compras registradas por Meta (sin total real reportado). */
+const PRICE = {liviana:9, airfryer:12.97, batidos:9, '7dias':17, sinazucar:17, rrm:17, metabolica:57};
 const PRODUCTS = [
-  {k:'liviana',cat:'lanz',label:'Lanzamiento Mujer Liviana (Septiembre)',lines:[
-     {l:'Entradas vendidas por pauta',q:195,p:9,meta:195},
-     {l:'Ventas del programa (cierre del lanzamiento)',q:35,p:57,meta:null}]},
-  {k:'airfryer',cat:'vsl',label:'VSL 50 Recetas Airfryer',lines:[{l:'Ventas',q:187,p:12.97,meta:156}]},
-  {k:'batidos',cat:'vsl',label:'VSL 27 Batidos',lines:[{l:'Ventas',q:15,p:9,meta:2}]},
+  {k:'metabolica',cat:'lanz',also:['ventas'],grps:['abril','codigo','agosto','metabolica'],label:'Programa Mujer Metabólica · histórico',
+   sub:'embudo: captación Abril + Código Metabólico + Agosto y campañas de venta',
+   lines:[{l:'Ventas históricas del programa',q:357,p:57}]},
+  {k:'liviana',cat:'lanz',grps:['liviana'],label:'Lanzamiento Mujer Liviana (Septiembre)',lines:[
+     {l:'Entradas vendidas por pauta',q:195,p:9},
+     {l:'Ventas del programa (cierre del lanzamiento)',q:35,p:57,noMeta:true}]},
+  {k:'airfryer',cat:'vsl',grps:['airfryer'],label:'VSL 50 Recetas Airfryer',lines:[{l:'Ventas',q:187,p:12.97}]},
+  {k:'batidos',cat:'vsl',grps:['batidos'],label:'VSL 27 Batidos',lines:[{l:'Ventas',q:15,p:9}]},
+  {k:'7dias',cat:'vsl',grps:['7dias'],label:'VSL 7 días sin azúcar',lines:[{l:'Ventas',q:'meta',p:17}]},
+  {k:'sinazucar',cat:'vsl',grps:['sinazucar'],label:'VSL Sin Azúcar (I y II)',lines:[{l:'Ventas',q:'meta',p:17}]},
+  {k:'rrm',cat:'vsl',grps:['rrm'],label:'VSL Reto Reset Metabólico (RRM)',lines:[{l:'Ventas',q:'meta',p:17}]},
 ];
+C.forEach(c=>{c.rev=PRICE[c.grp]!=null?c.res*PRICE[c.grp]:null;c.roas=c.rev!=null&&c.spend?c.rev/c.spend:null});
 PRODUCTS.forEach(P=>{
-  const camps=C.filter(c=>c.grp===P.k);
+  const camps=C.filter(c=>P.grps.includes(c.grp));
+  const metaSales=camps.filter(c=>c.rev!=null).reduce((a,c)=>a+c.res,0);
+  P.metaOnly=P.lines.some(x=>x.q==='meta');
+  P.lines.forEach(x=>{if(x.q==='meta')x.q=metaSales});
+  P.metaSales=metaSales;
   P.spend=camps.reduce((a,c)=>a+c.spend,0);
   P.rev=P.lines.reduce((a,x)=>a+x.q*x.p,0);
   P.sales=P.lines.reduce((a,x)=>a+x.q,0);
-  P.revPauta=camps.reduce((a,c)=>a+c.res*(PRICE[c.grp]||0),0);
+  P.revPauta=camps.reduce((a,c)=>a+(c.rev||0),0);
   P.roas=P.spend?P.rev/P.spend:0;
   P.n=camps.length;
 });
-C.forEach(c=>{c.rev=PRICE[c.grp]!=null?c.res*PRICE[c.grp]:null;c.roas=c.rev!=null&&c.spend?c.rev/c.spend:null});
+const inTab=(P,cat)=>P.cat===cat||(P.also||[]).includes(cat);
 
 /* ---------------- helpers ---------------- */
 const nf=(n,d=0)=>{if(n==null||isNaN(n))return '—';const s=Math.abs(n).toFixed(d).split('.');s[0]=s[0].replace(/\B(?=(\d{3})+(?!\d))/g,'.');return (n<0?'-':'')+s.join(',')};
@@ -432,14 +444,14 @@ function revenueBlock(prods,title){
   const max=Math.max(...prods.map(p=>Math.max(p.rev,p.spend)));
   h+=`<div class="tcard" style="margin-top:18px"><table class="rev"><thead><tr><th>Producto / concepto</th><th>Ventas</th><th>Precio</th><th>Ingresos</th><th>Inversión</th><th>Costo por venta</th><th>ROAS</th><th style="text-align:left;min-width:180px">Ingresos vs inversión</th></tr></thead><tbody>`;
   prods.forEach(p=>{
-    h+=`<tr><td class="name">${p.label}<small>${p.n} campaña${p.n>1?'s':''} · ventas atribuidas por Meta: ${nf(p.lines.reduce((a,x)=>a+(x.meta||0),0))}</small></td>
+    h+=`<tr><td class="name">${p.label}<small>${p.sub?p.sub+'<br>':''}${p.n} campaña${p.n>1?'s':''} · ${p.metaOnly?'ventas = compras registradas por Meta (sin total real reportado)':'ventas registradas por Meta: '+nf(p.metaSales)}</small></td>
       <td>${nf(p.sales)}</td><td>${p.lines.length>1?'—':money(p.lines[0].p)}</td><td style="color:var(--green)">${money(p.rev)}</td><td style="color:var(--orange)">${money(p.spend)}</td>
       <td>${money(p.spend/p.sales)}</td><td style="color:${roasColor(p.roas)};font-weight:500">${roasTxt(p.roas)}</td>
       <td style="text-align:left"><div class="rvbar"><i style="width:${p.rev/max*100}%;background:var(--green)"></i></div><div class="rvbar"><i style="width:${p.spend/max*100}%;background:var(--orange)"></i></div></td></tr>`;
-    if(p.lines.length>1) p.lines.forEach(x=>{h+=`<tr class="subrow"><td class="name">↳ ${x.l}<small>${x.meta!=null?'atribuidas por Meta: '+nf(x.meta):'venta del programa (no atribuible por campaña)'}</small></td><td>${nf(x.q)}</td><td>${money(x.p)}</td><td style="color:var(--green)">${money(x.q*x.p)}</td><td></td><td></td><td></td><td></td></tr>`});
+    if(p.lines.length>1) p.lines.forEach(x=>{h+=`<tr class="subrow"><td class="name">↳ ${x.l}<small>${x.noMeta?'venta del programa (no atribuible por campaña)':'registradas por Meta: '+nf(p.metaSales)}</small></td><td>${nf(x.q)}</td><td>${money(x.p)}</td><td style="color:var(--green)">${money(x.q*x.p)}</td><td></td><td></td><td></td><td></td></tr>`});
   });
   h+=`</tbody><tfoot><tr class="total"><td class="name">TOTAL</td><td>${nf(sales)}</td><td></td><td style="color:var(--green)">${money(rev)}</td><td>${money(sp)}</td><td>${money(sp/sales)}</td><td style="color:${roasColor(roas)}">${roasTxt(roas)}</td><td></td></tr></tfoot></table>
-  <div class="note">Ingresos = ventas reales reportadas × precio de venta (Mujer Liviana: entradas $9 · programa $57 · Airfryer $12,97 · 27 Batidos $9). “Atribuidos a pauta” usa solo las compras que registró el píxel de Meta. <span style="color:var(--green)">■</span> ingresos <span style="color:var(--orange)">■</span> inversión</div></div>`;
+  <div class="note">Ingresos = ventas reales reportadas × precio de venta (Mujer Metabólica $57 · Mujer Liviana: entradas $9, programa $57 · Airfryer $12,97 · 27 Batidos $9 · 7 días sin azúcar $17 · RRM $17). En los VSL de $17 sin total real reportado se usan las compras registradas por Meta. “Atribuidos a pauta” usa solo las compras que registró el píxel de Meta. Mujer Metabólica: las campañas de lanzamiento son etapas de captación; sus ventas reales (357 históricas) se comparan contra toda la inversión del embudo. <span style="color:var(--green)">■</span> ingresos <span style="color:var(--orange)">■</span> inversión</div></div>`;
   return h;
 }
 
@@ -477,7 +489,7 @@ function renderResumen(){
     h+=`<div class="cat" style="--c:${K.color}" data-go="${K.key}"><span class="open">abrir →</span>
       <h3>${K.icon} ${K.label} <span class="badge" style="color:${K.color};background:${K.bg};border-color:${K.bd}">${K.badge}</span></h3>
       <p>${K.desc}</p>
-      <div class="nums"><div><b style="color:var(--orange)">${money(g.spend)}</b><span>Invertido</span></div><div><b style="color:${resMain.c}">${resMain.v}</b><span>${resMain.l}</span></div><div><b style="color:var(--gold)">${g.cpr!=null?money(g.cpr):'—'}</b><span>Costo x resultado</span></div>${(()=>{const ps=PRODUCTS.filter(p=>p.cat===k);if(!ps.length)return `<div><b style="color:var(--gold-dim)">${l.length}</b><span>Campañas</span></div>`;const r=ps.reduce((x,p)=>x+p.rev,0),sp=ps.reduce((x,p)=>x+p.spend,0);return `<div><b style="color:var(--green)">${money(r)}</b><span>Ingresos</span></div><div><b style="color:${roasColor(r/sp)}">${roasTxt(r/sp)}</b><span>ROAS</span></div>`})()}</div>
+      <div class="nums"><div><b style="color:var(--orange)">${money(g.spend)}</b><span>Invertido</span></div><div><b style="color:${resMain.c}">${resMain.v}</b><span>${resMain.l}</span></div><div><b style="color:var(--gold)">${g.cpr!=null?money(g.cpr):'—'}</b><span>Costo x resultado</span></div>${(()=>{const ps=PRODUCTS.filter(p=>inTab(p,k));if(!ps.length)return `<div><b style="color:var(--gold-dim)">${l.length}</b><span>Campañas</span></div>`;const r=ps.reduce((x,p)=>x+p.rev,0),sp=ps.reduce((x,p)=>x+p.spend,0);return `<div><b style="color:var(--green)">${money(r)}</b><span>Ingresos</span></div><div><b style="color:${roasColor(r/sp)}">${roasTxt(r/sp)}</b><span>ROAS</span></div>`})()}</div>
     </div>`;
   });
   h+=`</div>`;
@@ -495,7 +507,7 @@ function renderLanz(sel='todos'){
     h+=`<div class="lc" data-sub="${k}" style="${sel===k?'border-color:var(--gold-dim)':''}"><div class="lt">${L.label}</div><div class="ld">${L.sub}</div>
       <div class="lv" style="color:var(--green)">${nf(g.res)}</div><div class="ll">${unit}</div>
       <div class="lr"><div>${money(g.spend)}<span>invertido</span></div><div style="text-align:right">${money(g.cpr)}<span>costo / ${unit.replace(/s$/,'')}</span></div></div>
-      ${(()=>{const P=PRODUCTS.find(p=>p.k===k);return P?`<div class="lr" style="color:var(--green)"><div>${money(P.rev)}<span>ingresos</span></div><div style="text-align:right;color:${roasColor(P.roas)}">${roasTxt(P.roas)}<span>ROAS</span></div></div>`:''})()}</div>`;
+      ${(()=>{const P=PRODUCTS.find(p=>p.k===k);if(P)return `<div class="lr" style="color:var(--green)"><div>${money(P.rev)}<span>ingresos</span></div><div style="text-align:right;color:${roasColor(P.roas)}">${roasTxt(P.roas)}<span>ROAS</span></div></div>`;return `<div class="lr"><div style="color:var(--gold-dim)">→ Mujer Metabólica<span>captación del programa $57</span></div></div>`})()}</div>`;
   });
   h+=`</div>`;
   h+=`<div class="sec" style="margin-top:36px">Ver lanzamiento</div>`;
@@ -504,7 +516,8 @@ function renderLanz(sel='todos'){
   const a=agg(list);
   const isL=sel==='abril'||sel==='agosto', unit=sel==='liviana'?'entrada':sel==='codigo'?'registro':isL?'lead':'resultado';
   const resLabel=sel==='todos'?'Resultados (leads + registros + entradas)':sel==='liviana'?'Entradas vendidas':sel==='codigo'?'Registros':'Leads generados';
-  if(sel==='liviana'||sel==='todos') h+=revenueBlock(PRODUCTS.filter(p=>p.k==='liviana'),'Ingresos · Lanzamiento Mujer Liviana');
+  const lp=PRODUCTS.filter(p=>p.cat==='lanz'&&(sel==='todos'||p.grps.includes(sel)));
+  h+=revenueBlock(lp,sel==='todos'?'Ingresos · lanzamientos':sel==='liviana'?'Ingresos · Lanzamiento Mujer Liviana':`Ingresos · ${LAUNCHES[sel].label} es parte del embudo Mujer Metabólica`);
   h+=`<div class="sec">Métricas Meta Ads · ${sel==='todos'?'todos los lanzamientos':LAUNCHES[sel].label+' · '+LAUNCHES[sel].sub}</div>`;
   h+=stdKpis(a,resLabel);
   h+=`<div class="sec">Embudo de conversión · métricas Meta Ads</div>`;
@@ -512,7 +525,7 @@ function renderLanz(sel='todos'){
   h+=`<div class="sec">Resumen campañas · desglose campaña por campaña</div>`;
   const notes={
     todos:'Los resultados combinan tres tipos: leads (Abril y Agosto), registros reportados por Meta como evento de compra web (Código Metabólico) y entradas vendidas (Mujer Liviana). Compara cada lanzamiento por separado en las pestañas.',
-    abril:'Cuenta 565816124663247. Solo se incluyen las 2 campañas del Lanzamiento Abril 2026 (🟡 Tráfico Tibio y 🔵 Tráfico Frío).',
+    abril:'Cuenta 565816124663247. Solo se incluyen las 2 campañas del Lanzamiento Abril 2026 (🟡 Tráfico Tibio y 🔵 Tráfico Frío). Etapa de captación del programa Mujer Metabólica.',
     codigo:'Campañas con objetivo Ventas: Meta reporta el resultado como “compra en el sitio web”. Por su costo (~$0,26–0,45) corresponden a registros de bajo valor / gratuitos del lanzamiento.',
     agosto:'Las 4 campañas de captación del Lanzamiento Agosto. Se excluyen las campañas NSN Seguidores (ver pestaña Awareness).',
     liviana:'Venta de entradas ($9) al lanzamiento Mujer Liviana, campañas iniciadas el 11/09/2026. Los ingresos por campaña solo cuentan las entradas; las 35 ventas del programa ($57) se suman en el bloque de ingresos del lanzamiento.'};
@@ -529,9 +542,8 @@ function renderGeneric(catKey,panel,groups,sel='todos'){
   const isAw=catKey==='aw';
   let h=`<div class="sec">${K.icon} ${K.label} · ${K.badge}</div><p class="intro">${K.desc}</p>`;
   if(groups) h+=subtabs(catKey,[{k:'todos',l:'Todas'},...Object.entries(groups).map(([k,l])=>({k,l}))],sel);
-  const prods=PRODUCTS.filter(p=>p.cat===catKey&&(sel==='todos'||p.k===sel));
+  const prods=PRODUCTS.filter(p=>inTab(p,catKey)&&(sel==='todos'||p.grps.includes(sel)));
   h+=revenueBlock(prods,`Ingresos · ${sel==='todos'?K.label:groups[sel]}`);
-  if(catKey==='vsl'&&(sel==='todos'||!prods.length)) h+=`<p class="note" style="margin:14px 0 0">Sin precio de venta reportado aún para VSL 7 días, VSL Sin Azúcar y VSL RRM: sus campañas no suman ingresos.</p>`;
   h+=`<div class="sec">Métricas Meta Ads</div>`;
   h+=stdKpis(a,isAw?'Visitas al perfil IG':'Compras',isAw?'var(--teal)':'var(--green)');
   if(groups && sel==='todos'){
@@ -548,7 +560,7 @@ function renderGeneric(catKey,panel,groups,sel='todos'){
   const notes={
     vsl:'Campañas con video de ventas (VSL) y objetivo Ventas. “Frío/Tibio/Templado” indica la temperatura del público. Costo por compra calculado sobre compras web del píxel. Las campañas Airfryer del 07/09 son pruebas por país (MEX, COL, USA). Ingresos por campaña = compras atribuidas por Meta × precio de venta.',
     aw:'Objetivo Tráfico hacia el perfil de Instagram; el resultado es “visita al perfil”. Los clics en el enlace incluyen los clics hacia el perfil.',
-    ventas:'Campañas de venta directa de producto (sin VSL). Aún no hay precio de venta cargado para Mujer Metabólica, por eso no se calculan ingresos.'};
+    ventas:'Campañas de venta directa de Mujer Metabólica ($57). Ingresos por campaña = compras registradas por Meta × $57; las ventas reales (357 históricas) se muestran en el bloque de ingresos junto con la inversión de captación de los lanzamientos.'};
   h+=table(list,{note:notes[catKey],resCol:isAw?'Visitas perfil':'Compras'});
   h+=`<div class="sec">Campañas · costo por resultado</div><div class="ccards">${list.map(c=>ccard(c,list,groups?groups[c.grp]:'')).join('')}</div>`;
   el(panel).innerHTML=h;
