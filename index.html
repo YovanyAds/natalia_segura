@@ -159,10 +159,13 @@ tbody tr:hover td{background:rgba(255,255,255,.015)}
 
 table.rev{min-width:1150px}
 table.rev td.name{min-width:340px}
+table.rev.aw{min-width:1100px}
+table.rev.aw td.name{min-width:280px}
 .rvbar{height:7px;background:var(--bg2);border-radius:999px;overflow:hidden;margin:3px 0}
 .rvbar i{display:block;height:100%;border-radius:999px}
 tr.subrow td{padding-top:8px;padding-bottom:8px;font-size:13px}
 tr.subrow td.name{color:var(--gold-dim);font-weight:400;padding-left:22px}
+.cc .rv.fv{background:var(--teal-bg);border-color:#24453c}
 .cc .rv{display:flex;gap:24px;margin-top:12px;padding:10px 14px;border-radius:12px;background:var(--green-bg);border:1px solid #23472b}
 .cc .rv b{display:block;font-family:'DM Mono',monospace;font-size:17px;font-weight:500}
 .cc .rv span{font-size:11.5px;color:var(--muted)}
@@ -194,7 +197,7 @@ footer{margin-top:60px;color:var(--faint);font-size:12.5px;text-align:center;fon
     </div>
     <div class="hright">
       <span class="pill-live">Meta Ads · Datos reales</span>
-      <div class="updated">Actualizado: 02/10/2026 · histórico completo</div>
+      <div class="updated">Actualizado: 04/10/2026 · histórico completo</div>
       <div class="accounts">
         <span class="acct"><b>565816124663247</b> · Lanzamiento Abril</span>
         <span class="acct"><b>1697488988267910</b> · todas las campañas</span>
@@ -210,7 +213,7 @@ footer{margin-top:60px;color:var(--faint);font-size:12.5px;text-align:center;fon
   <section class="panel" id="p-awareness"></section>
   <section class="panel" id="p-ventas"></section>
 
-  <footer>Fuente: Meta Ads Manager · métricas acumuladas de toda la vida de cada campaña · USD</footer>
+  <footer>Fuente: Meta Ads Manager · métricas acumuladas de toda la vida de cada campaña · USD · actualizado 04/10/2026</footer>
 </div>
 
 <script>
@@ -219,8 +222,8 @@ const A1 = '565816124663247', A2 = '1697488988267910';
 // f: [spend, results, impressions, reach, clicks, linkClicks, landingPageViews, videoPlays, thruplays, engagement]
 const RAW = [
   // ---- LANZAMIENTOS ----
-  {id:'120243866872840030',acct:A1,cat:'lanz',grp:'abril',name:'🟡 Lanzamiento Abril 2026 | Tráfico Tibio',short:'Tibio · Abril',temp:'tibio',obj:'Leads',start:'2026-04-10',stop:'2026-04-20',rt:'leads',f:[412.42,1686,216942,45180,14998,6274,4716,176115,31962,81787]},
-  {id:'120243863837640030',acct:A1,cat:'lanz',grp:'abril',name:'🔵 Lanzamiento Abril 2026 | Tráfico Frío',short:'Frío · Abril',temp:'frio',obj:'Leads',start:'2026-04-10',stop:'2026-04-20',rt:'leads',f:[249.19,1266,104362,61205,9111,4166,3034,95182,22638,55009]},
+  {id:'120243866872840030',acct:A1,cat:'lanz',grp:'abril',name:'🟡 Lanzamiento Abril 2026 | Tráfico Tibio',short:'Tibio · Abril',temp:'tibio',obj:'Leads',start:'2026-04-10',stop:'2026-04-20',rt:'leads',f:[412.42,1686,216942,46673,14998,6274,4716,176115,31962,81787]},
+  {id:'120243863837640030',acct:A1,cat:'lanz',grp:'abril',name:'🔵 Lanzamiento Abril 2026 | Tráfico Frío',short:'Frío · Abril',temp:'frio',obj:'Leads',start:'2026-04-10',stop:'2026-04-20',rt:'leads',f:[249.19,1266,104362,60046,9111,4166,3034,95182,22638,55009]},
   {id:'120244644863660482',acct:A2,cat:'lanz',grp:'codigo',name:'Fríos 🧊 Código Metabólico ❄️ Mayo 22 – 01 Junio',short:'Frío · Código Metabólico',temp:'frio',obj:'Ventas',start:'2026-05-22',stop:'2026-06-01',rt:'registros',f:[475.30,1827,164320,94588,18881,8731,6848,153865,48333,97495]},
   {id:'120244643344280482',acct:A2,cat:'lanz',grp:'codigo',name:'Tibio 🔥 Código Metabólico 🔥 Mayo 22 – 01 Junio',short:'Tibio · Código Metabólico',temp:'tibio',obj:'Ventas',start:'2026-05-22',stop:'2026-06-01',rt:'registros',f:[760.46,1693,295692,72840,20152,9701,7700,268195,56389,125197]},
   {id:'120248418938670482',acct:A2,cat:'lanz',grp:'agosto',name:'🟡 LZ Agosto | NNS | Tibios | Leads | Versión 2',short:'Tibios V2 · Agosto',temp:'tibio',obj:'Leads',start:'2026-07-26',stop:'2026-08-04',rt:'leads',f:[612.49,2017,252387,65731,16855,8037,7422,204992,39563,104684]},
@@ -240,12 +243,12 @@ const RAW = [
   {id:'120249070402240482',acct:A2,cat:'vsl',grp:'rrm',name:'Templado 🔥 VSL RRM | 19-08-2026',short:'Templado · VSL RRM',temp:'tibio',obj:'Ventas',start:'2026-08-20',stop:null,rt:'compras',f:[233.67,16,79820,21757,2201,1016,908,25162,1608,7141]},
   // ---- AWARENESS ----
   {id:'120248131838370482',acct:A2,cat:'aw',grp:'nsn',name:'🇺🇸 NSN Awareness Seguidores USA | Jul 15 – 03 Ago',short:'Seguidores USA',temp:'frio',obj:'Tráfico (perfil IG)',start:'2026-07-15',stop:'2026-08-03',rt:'visitas',f:[394.44,2307,21545,16663,2329,2350,8,20925,7475,15303]},
-  {id:'120248130953280482',acct:A2,cat:'aw',grp:'nsn',name:'🇨🇷 NSN Awareness Seguidores CR | Jul 15 – 03 Ago',short:'Seguidores CR',temp:'frio',obj:'Tráfico (perfil IG)',start:'2026-07-15',stop:'2026-08-03',rt:'visitas',f:[394.12,23171,310861,160312,23052,23332,34,305465,65815,161408]},
+  {id:'120248130953280482',acct:A2,cat:'aw',grp:'nsn',name:'🇨🇷 NSN Awareness Seguidores CR | Jul 15 – 03 Ago',short:'Seguidores CR',temp:'frio',obj:'Tráfico (perfil IG)',start:'2026-07-15',stop:'2026-08-03',rt:'visitas',f:[394.14,23171,310866,160312,23052,23332,34,305470,65816,161410]},
   // ---- VENTAS DIRECTAS / PRODUCTOS ----
   {id:'120245625269060482',acct:A2,cat:'ventas',grp:'metabolica',name:'💰 Ventas | Mujer Metabólica | 04 al 10 Junio 2026',short:'Mujer Metabólica · Jun',temp:'tibio',obj:'Ventas',start:'2026-06-04',stop:'2026-06-10',rt:'compras',f:[81.87,3,29883,10226,1041,482,417,23258,2727,8113]},
   {id:'120248763048770482',acct:A2,cat:'ventas',grp:'metabolica',name:'💰 Ventas | Mujer Metabólica | 07 al 10 Agosto 2026',short:'Mujer Metabólica · Ago',temp:'tibio',obj:'Ventas',start:'2026-08-07',stop:'2026-08-10',rt:'compras',f:[91.32,4,29209,10710,1015,517,478,23951,2722,7731]},
-  {id:'120249161242240482',acct:A2,cat:'vsl',grp:'airfryer',name:'FRÍO ❄️ Recetas Airfryer | 26-08-2026',short:'Frío · Airfryer',temp:'frio',obj:'Ventas',start:'2026-08-26',stop:null,rt:'compras',f:[368.91,75,107197,32938,3902,2079,1728,50891,5876,19350]},
-  {id:'120249160762710482',acct:A2,cat:'vsl',grp:'airfryer',name:'TEMPLADO 🔥 Recetas Airfryer | 26-08-2026',short:'Templado · Airfryer',temp:'tibio',obj:'Ventas',start:'2026-08-26',stop:null,rt:'compras',f:[370.09,79,147215,34599,4043,2412,1973,85939,8495,27864]},
+  {id:'120249161242240482',acct:A2,cat:'vsl',grp:'airfryer',name:'FRÍO ❄️ Recetas Airfryer | 26-08-2026',short:'Frío · Airfryer',temp:'frio',obj:'Ventas',start:'2026-08-26',stop:null,rt:'compras',f:[369.16,75,107247,32954,3905,2080,1729,50913,5878,19355]},
+  {id:'120249160762710482',acct:A2,cat:'vsl',grp:'airfryer',name:'TEMPLADO 🔥 Recetas Airfryer | 26-08-2026',short:'Templado · Airfryer',temp:'tibio',obj:'Ventas',start:'2026-08-26',stop:null,rt:'compras',f:[370.18,79,147253,34599,4045,2414,1975,85974,8496,27882]},
   {id:'120249342485550482',acct:A2,cat:'vsl',grp:'airfryer',name:'FRÍO ❄️ Recetas Airfryer | 07-09-2026 MEX',short:'Frío · Airfryer MEX',temp:'frio',obj:'Ventas',start:'2026-09-07',stop:null,rt:'compras',f:[32.87,1,3086,2436,118,60,41,2689,241,1136]},
   {id:'120249342515630482',acct:A2,cat:'vsl',grp:'airfryer',name:'FRÍO ❄️ Recetas Airfryer | 07-09-2026 COL',short:'Frío · Airfryer COL',temp:'frio',obj:'Ventas',start:'2026-09-07',stop:null,rt:'compras',f:[32.87,1,4187,3533,108,72,49,3740,307,1381]},
   {id:'120249342557420482',acct:A2,cat:'vsl',grp:'airfryer',name:'FRÍO ❄️ Recetas Airfryer | 07-09-2026 USA',short:'Frío · Airfryer USA',temp:'frio',obj:'Ventas',start:'2026-09-07',stop:null,rt:'compras',f:[31.39,0,1131,866,68,33,27,1016,133,503]},
@@ -253,7 +256,15 @@ const RAW = [
   {id:'120249450861160482',acct:A2,cat:'vsl',grp:'batidos',name:'TEMPLADO 🔥 27 Batidos | 15-09-2026',short:'Templado · 27 Batidos',temp:'tibio',obj:'Ventas',start:'2026-09-15',stop:null,rt:'compras',f:[11.31,1,4616,2431,81,33,21,0,0,42]},
 ];
 const KEYS=['spend','res','imp','reach','clicks','link','lpv','vplay','thru','eng'];
-const C = RAW.map(r=>{const o={...r};KEYS.forEach((k,i)=>o[k]=r.f[i]);return o});
+// Seguidores nuevos de Instagram (métrica Meta "Instagram follows") por campaña
+const FOL={'120243866872840030':64,'120243863837640030':75,'120244644863660482':31,'120244643344280482':78,'120248418938670482':81,'120248362787240482':12,
+  '120248362683360482':39,'120248361608930482':9,'120249398219600482':67,'120249399531090482':51,'120244278715390482':8,'120244270177440482':0,
+  '120246061318150482':9,'120246060070300482':2,'120247169808030482':5,'120247171707000482':0,'120249072237720482':7,'120249070402240482':9,
+  '120248131838370482':886,'120248130953280482':1610,'120245625269060482':7,'120248763048770482':5,'120249161242240482':35,'120249160762710482':39,
+  '120249342485550482':7,'120249342515630482':6,'120249342557420482':5,'120249451368350482':0,'120249450861160482':1};
+// Retención de video awareness: [25%, 50%, 75%, 100%, tiempo promedio (s)]
+const VID={'120248131838370482':[7516,5690,3589,1269,17],'120248130953280482':[66576,44158,22618,5795,9]};
+const C = RAW.map(r=>{const o={...r};KEYS.forEach((k,i)=>o[k]=r.f[i]);o.fol=FOL[r.id]||0;o.cpf=o.fol?o.spend/o.fol:null;return o});
 
 const RT1 = {leads:'lead',registros:'registro',entradas:'entrada vendida',compras:'compra',visitas:'visita al perfil'};
 const RT = {leads:'leads',registros:'registros',entradas:'entradas vendidas',compras:'compras',visitas:'visitas al perfil'};
@@ -263,7 +274,7 @@ const CATS = {
   vsl:{key:'vsl',label:'VSLs',icon:'🎬',color:'var(--mauve)',bg:'var(--mauve-bg)',bd:'#4a2c3a',badge:'Video ventas',
         desc:'Campañas de video de ventas: VSL 7 días, VSL Sin Azúcar (I y II), VSL RRM, VSL 50 Recetas Airfryer y VSL 27 Batidos, segmentadas en tráfico frío y tibio/templado.'},
   aw:{key:'awareness',label:'Awareness',icon:'📈',color:'var(--teal)',bg:'var(--teal-bg)',bd:'#24453c',badge:'AW',
-        desc:'Campañas NSN Seguidores (USA + CR): visitas al perfil de Instagram, reproducción de video y embudo de alcance.'},
+        desc:'Campañas NSN Seguidores (USA + CR): visitas al perfil de Instagram, seguidores nuevos, costo por seguidor, retención de video y embudo, con comparativa por campaña.'},
   ventas:{key:'ventas',label:'Ventas directas',icon:'🛒',color:'var(--blue)',bg:'#111a26',bd:'#253a5a',badge:'Productos',
         desc:'Venta directa del programa Mujer Metabólica ($57) tras los lanzamientos de Mayo y Agosto. 336 ventas reales en Hotmart.'},
 };
@@ -311,7 +322,7 @@ const nf=(n,d=0)=>{if(n==null||isNaN(n))return '—';const s=Math.abs(n).toFixed
 const money=(n,d=2)=>'$'+nf(n,d);
 const pct=(n,d=0)=>nf(n*100,d)+'%';
 const sum=(arr,k)=>arr.reduce((a,c)=>a+(c[k]||0),0);
-const agg=arr=>{const o={};KEYS.forEach(k=>o[k]=sum(arr,k));o.n=arr.length;o.cpm=o.imp?o.spend/o.imp*1000:0;o.ctr=o.imp?o.clicks/o.imp:0;o.cpc=o.clicks?o.spend/o.clicks:0;o.cpr=o.res?o.spend/o.res:null;o.freq=o.reach?o.imp/o.reach:0;return o};
+const agg=arr=>{const o={};KEYS.forEach(k=>o[k]=sum(arr,k));o.fol=sum(arr,'fol');o.cpf=o.fol?o.spend/o.fol:null;o.n=arr.length;o.cpm=o.imp?o.spend/o.imp*1000:0;o.ctr=o.imp?o.clicks/o.imp:0;o.cpc=o.clicks?o.spend/o.clicks:0;o.cpr=o.res?o.spend/o.res:null;o.freq=o.reach?o.imp/o.reach:0;return o};
 const fdate=s=>{if(!s)return 'en curso';const [y,m,d]=s.split('-');return `${d} ${['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'][+m-1]}`};
 const range=c=>`${fdate(c.start)} – ${c.stop?fdate(c.stop):'sin fecha fin'}`;
 const cpr=c=>c.res?c.spend/c.res:null;
@@ -369,19 +380,19 @@ function funnel(a,final){
 function chipFor(c){const k=CATS[c.cat];return `<span class="chip" style="color:${k.color};background:${k.bg};border-color:${k.bd}">${k.icon} ${k.label}</span>`}
 
 let tableId=0;
-function table(list,{showCat=false,note='',resCol='Resultados'}={}){
+function table(list,{showCat=false,note='',resCol='Resultados',fol=false}={}){
   const id='t'+(tableId++);
   const cols=[
     {k:'name',l:'Campaña'},{k:'start',l:'Fechas'},{k:'res',l:resCol},{k:'cpr',l:'Costo x resultado'},{k:'spend',l:'Gastado'},
-    {k:'rev',l:'Ingresos pauta'},{k:'roas',l:'ROAS'},{k:'imp',l:'Impresiones'},{k:'reach',l:'Alcance'},{k:'link',l:'Clics enlace'},{k:'ctr',l:'CTR'},{k:'cpm',l:'CPM'}];
+    ...(fol?[{k:'fol',l:'Seguidores IG'},{k:'cpf',l:'Costo x seguidor'}]:[{k:'rev',l:'Ingresos pauta'},{k:'roas',l:'ROAS'}]),{k:'imp',l:'Impresiones'},{k:'reach',l:'Alcance'},{k:'link',l:'Clics enlace'},{k:'ctr',l:'CTR'},{k:'cpm',l:'CPM'}];
   const rows=list.map(c=>({...c,cpr:cpr(c),ctr:c.imp?c.clicks/c.imp:0,cpm:c.imp?c.spend/c.imp*1000:0}));
   const crs=rows.map(r=>r.cpr).filter(x=>x!=null).sort((a,b)=>a-b);
   const med=crs.length?crs[Math.floor(crs.length/2)]:0;
-  TABLES[id]={rows,cols,showCat,med,sort:{k:'spend',dir:-1}};
+  TABLES[id]={rows,cols,showCat,med,fol,sort:{k:'spend',dir:-1}};
   const a=agg(list);
   const withRev=list.filter(c=>c.rev!=null), revT=withRev.length?sum(withRev,'rev'):null, spT=sum(withRev,'spend');
   return `<div class="tcard"><table id="${id}"><thead><tr>${cols.map(c=>`<th data-k="${c.k}">${c.l}</th>`).join('')}</tr></thead><tbody></tbody>
-  <tfoot><tr class="total"><td class="name">TOTAL · ${a.n} campañas</td><td></td><td class="res"><b>${nf(a.res)}</b></td><td>${a.cpr!=null?money(a.cpr):'—'}</td><td>${money(a.spend)}</td><td style="color:var(--green)">${revT!=null?money(revT):'—'}</td><td style="color:${roasColor(revT!=null?revT/spT:null)}">${revT!=null?roasTxt(revT/spT):'—'}</td><td>${nf(a.imp)}</td><td>${nf(a.reach)}</td><td>${nf(a.link)}</td><td>${pct(a.ctr,2)}</td><td>${money(a.cpm)}</td></tr></tfoot></table>
+  <tfoot><tr class="total"><td class="name">TOTAL · ${a.n} campañas</td><td></td><td class="res"><b>${nf(a.res)}</b></td><td>${a.cpr!=null?money(a.cpr):'—'}</td><td>${money(a.spend)}</td>${fol?`<td style="color:var(--teal)">${nf(a.fol)}</td><td>${a.cpf!=null?money(a.cpf):'—'}</td>`:`<td style="color:var(--green)">${revT!=null?money(revT):'—'}</td><td style="color:${roasColor(revT!=null?revT/spT:null)}">${revT!=null?roasTxt(revT/spT):'—'}</td>`}<td>${nf(a.imp)}</td><td>${nf(a.reach)}</td><td>${nf(a.link)}</td><td>${pct(a.ctr,2)}</td><td>${money(a.cpm)}</td></tr></tfoot></table>
   ${note?`<div class="note">${note}</div>`:''}</div>`;
 }
 const TABLES={};
@@ -395,7 +406,7 @@ function renderTable(id){
     <td>${range(r)}</td>
     <td class="res"><b style="color:${col}">${nf(r.res)}</b><span>${RT[r.rt]}</span></td>
     <td style="color:${col}">${r.cpr!=null?money(r.cpr):'—'}</td>
-    <td style="color:var(--gold)">${money(r.spend)}</td><td style="color:var(--green)">${r.rev!=null?money(r.rev):'—'}</td><td style="color:${roasColor(r.roas)}">${roasTxt(r.roas)}</td><td>${nf(r.imp)}</td><td>${nf(r.reach)}</td><td>${nf(r.link)}</td><td>${pct(r.ctr,2)}</td><td>${money(r.cpm)}</td></tr>`}).join('');
+    <td style="color:var(--gold)">${money(r.spend)}</td>${t.fol?`<td style="color:var(--teal)">${nf(r.fol)}</td><td>${r.cpf!=null?money(r.cpf):'—'}</td>`:`<td style="color:var(--green)">${r.rev!=null?money(r.rev):'—'}</td><td style="color:${roasColor(r.roas)}">${roasTxt(r.roas)}</td>`}<td>${nf(r.imp)}</td><td>${nf(r.reach)}</td><td>${nf(r.link)}</td><td>${pct(r.ctr,2)}</td><td>${money(r.cpm)}</td></tr>`}).join('');
   document.querySelectorAll(`#${id} th`).forEach(th=>th.classList.toggle('sorted',th.dataset.k===k));
 }
 document.addEventListener('click',e=>{
@@ -418,6 +429,7 @@ function ccard(c,list,tag){
     <h4>${c.name}</h4><div class="when">${range(c)}${label?' · '+label:''}</div>
     <div class="big" style="color:${color}">${v!=null?money(v):'—'}</div><div class="bl">costo por ${RT1[c.rt]}</div>
     <div class="mini"><div><b style="color:${color}">${nf(c.res)}</b><span>${RT[c.rt]}</span></div><div><b>${money(c.spend)}</b><span>gastado</span></div><div><b>${nf(c.imp)}</b><span>impres.</span></div><div><b>${nf(c.reach)}</b><span>alcance</span></div></div>
+    ${c.cat==='aw'?`<div class="rv fv"><div><b style="color:var(--teal)">${nf(c.fol)}</b><span>seguidores nuevos</span></div><div><b style="color:var(--gold)">${c.cpf!=null?money(c.cpf):'—'}</b><span>costo por seguidor</span></div><div><b style="color:var(--gold-dim)">${c.res?pct(c.fol/c.res,1):'—'}</b><span>visita → seguidor</span></div></div>`:''}
     ${c.rev!=null?`<div class="rv"><div><b style="color:var(--green)">${money(c.rev)}</b><span>ingresos atribuidos</span></div><div><b style="color:${roasColor(c.roas)}">${roasTxt(c.roas)}</b><span>ROAS</span></div><div><b style="color:var(--gold-dim)">${money(PRICE[c.grp])}</b><span>precio por venta</span></div></div>`:''}
     <div class="bars">
       ${bar('Inversión',c.spend,maxSpend,'var(--orange)',pct(c.spend/sum(list,'spend')))}
@@ -459,6 +471,36 @@ function revenueBlock(prods,title){
   return h;
 }
 
+function followersBlock(list,a){
+  let h=`<div class="sec">👥 Dashboard de seguidores · Instagram</div>`;
+  h+=kpis([
+    {v:nf(a.fol),l:'Seguidores nuevos',d:'Instagram follows atribuidos a la pauta',c:'var(--green)'},
+    {v:money(a.cpf),l:'Costo por seguidor',d:`${money(a.spend)} invertidos`,c:'var(--gold)'},
+    {v:nf(a.res),l:'Visitas al perfil',d:`Costo por visita ${money(a.cpr)}`,c:'var(--teal)'},
+    {v:pct(a.fol/a.res,1),l:'Conversión visita → seguidor',d:`${pct(a.fol/a.reach,2)} del alcance se hizo seguidor`,c:'var(--mauve)'},
+  ]);
+  const max=Math.max(...list.map(c=>c.fol));
+  h+=`<div class="tcard" style="margin-top:18px"><table class="rev aw"><thead><tr><th>Campaña</th><th>Invertido</th><th>Alcance</th><th>Visitas perfil</th><th>Costo x visita</th><th>Seguidores</th><th>Costo x seguidor</th><th>Visita → seguidor</th><th>Tiempo prom. video</th><th style="text-align:left;min-width:150px">Seguidores</th></tr></thead><tbody>`;
+  list.forEach(c=>{const v=VID[c.id]||[];
+    h+=`<tr><td class="name">${c.name}<small>${range(c)}</small></td><td style="color:var(--orange)">${money(c.spend)}</td><td>${nf(c.reach)}</td><td style="color:var(--teal)">${nf(c.res)}</td><td>${money(cpr(c))}</td>
+    <td style="color:var(--green);font-weight:500">${nf(c.fol)}</td><td style="color:var(--gold)">${c.cpf!=null?money(c.cpf):'—'}</td><td>${c.res?pct(c.fol/c.res,1):'—'}</td><td>${v[4]!=null?v[4]+' s':'—'}</td>
+    <td style="text-align:left"><div class="rvbar"><i style="width:${c.fol/max*100}%;background:var(--green)"></i></div></td></tr>`});
+  h+=`</tbody><tfoot><tr class="total"><td class="name">TOTAL</td><td>${money(a.spend)}</td><td>${nf(a.reach)}</td><td>${nf(a.res)}</td><td>${money(a.cpr)}</td><td style="color:var(--green)">${nf(a.fol)}</td><td>${money(a.cpf)}</td><td>${pct(a.fol/a.res,1)}</td><td></td><td></td></tr></tfoot></table></div>`;
+  // retención de video
+  h+=`<div class="sec">Retención del video · campañas de seguidores</div><div class="ccards">`;
+  list.forEach(c=>{const v=VID[c.id];if(!v)return;const steps=[['Reproducciones',c.vplay],['25% del video',v[0]],['50% del video',v[1]],['75% del video',v[2]],['100% del video',v[3]],['ThruPlay (15s+)',c.thru]];
+    h+=`<div class="cc" style="--c:var(--teal)"><h4 style="margin-top:0">${c.short}</h4><div class="when">Tiempo promedio de reproducción: ${v[4]} s</div><div class="bars">${steps.map(([l,n])=>`<div class="bar"><span>${l}</span><div class="tr"><i style="width:${n/c.vplay*100}%;background:var(--mauve)"></i></div><em>${nf(n)}</em></div>`).join('')}</div></div>`});
+  h+=`</div>`;
+  // embudo de seguidores
+  h+=`<div class="sec">Embudo de seguidores</div><div class="funnel">`;
+  const fs=[[a.reach,'Alcance','teal','base del embudo'],[a.res,'Visitas al perfil','mauve','conv. desde alcance'],[a.fol,'Seguidores nuevos','orange','conv. desde visitas']];
+  fs.forEach(([n,l,st,p],i)=>{const [fc,fb,fbd]=FSTYLE[st];const r=i?n/fs[i-1][0]:1;
+    if(i)h+=`<div class="fdrop"><span class="${1-r>.5?'bad':'good'}">↓ ${pct(1-r)} ${i===1?'no visita el perfil':'visita pero no sigue'}</span></div>`;
+    h+=`<div class="fstep" style="width:${100-i*12}%;--fc:${fc};--fb:${fb};--fbd:${fbd}"><div class="left"><span class="num">${nf(n)}</span><span class="lab">${l}</span></div><div class="right"><div class="pct">${i?pct(r,1):'100%'}</div><div class="pl">${p}</div></div></div>`});
+  h+=`</div>`;
+  return h;
+}
+
 function subtabs(name,opts,active){return `<div class="subtabs" data-group="${name}">${opts.map(o=>`<button class="subtab${o.k===active?' active':''}" data-k="${o.k}">${o.l}</button>`).join('')}</div>`}
 
 /* ---------------- PANELS ---------------- */
@@ -482,7 +524,7 @@ function renderResumen(){
     {v:nf(a.imp),l:'Impresiones',d:`CPM promedio ${money(a.cpm)}`},
     {v:nf(a.clicks),l:'Clics (todos)',d:`${nf(a.link)} clics en el enlace · CTR ${pct(a.ctr,2)}`,c:'var(--teal)'},
     {v:nf(a.vplay),l:'Reproducciones de video',d:`${nf(a.thru)} ThruPlays (15s+)`,c:'var(--mauve)'},
-    {v:nf(vis),l:'Visitas al perfil IG',d:'campañas de awareness',c:'var(--teal)'},
+    {v:nf(vis),l:'Visitas al perfil IG',d:`+${nf(sum(byCat('aw'),'fol'))} seguidores nuevos (awareness) · ${nf(sum(C,'fol'))} en todas las campañas`,c:'var(--teal)'},
   ]);
   h+=`<div class="sec">Distribución de la inversión por tipo de campaña</div><div class="tcard" style="padding:24px 26px"><div class="sbar">${catOrder.map(k=>{const s=sum(byCat(k),'spend');return `<div title="${CATS[k].label}" style="width:${s/tot*100}%;background:${CATS[k].color}"></div>`}).join('')}</div>
    <div class="slegend">${catOrder.map(k=>{const s=sum(byCat(k),'spend');return `<span><i style="background:${CATS[k].color}"></i>${CATS[k].icon} ${CATS[k].label}<b>${money(s)}</b> · ${pct(s/tot)}</span>`}).join('')}</div></div>`;
@@ -493,7 +535,7 @@ function renderResumen(){
     h+=`<div class="cat" style="--c:${K.color}" data-go="${K.key}"><span class="open">abrir →</span>
       <h3>${K.icon} ${K.label} <span class="badge" style="color:${K.color};background:${K.bg};border-color:${K.bd}">${K.badge}</span></h3>
       <p>${K.desc}</p>
-      <div class="nums"><div><b style="color:var(--orange)">${money(g.spend)}</b><span>Invertido</span></div><div><b style="color:${resMain.c}">${resMain.v}</b><span>${resMain.l}</span></div><div><b style="color:var(--gold)">${g.cpr!=null?money(g.cpr):'—'}</b><span>Costo x resultado</span></div>${(()=>{const ps=PRODUCTS.filter(p=>inTab(p,k));if(!ps.length)return `<div><b style="color:var(--gold-dim)">${l.length}</b><span>Campañas</span></div>`;const r=ps.reduce((x,p)=>x+p.rev,0),sp=ps.reduce((x,p)=>x+p.spend,0);return `<div><b style="color:var(--green)">${money(r)}</b><span>Ingresos</span></div><div><b style="color:${roasColor(r/sp)}">${roasTxt(r/sp)}</b><span>ROAS</span></div>`})()}</div>
+      ${k==='aw'?`<div class="nums"><div><b style="color:var(--orange)">${money(g.spend)}</b><span>Invertido</span></div><div><b style="color:var(--teal)">${nf(g.res)}</b><span>Visitas perfil</span></div><div><b style="color:var(--green)">${nf(g.fol)}</b><span>Seguidores nuevos</span></div><div><b style="color:var(--gold)">${money(g.cpf)}</b><span>Costo x seguidor</span></div><div><b style="color:var(--gold-dim)">${money(g.cpr)}</b><span>Costo x visita</span></div><div><b style="color:var(--gold-dim)">${pct(g.fol/g.res,1)}</b><span>Visita → seguidor</span></div></div>`:`<div class="nums"><div><b style="color:var(--orange)">${money(g.spend)}</b><span>Invertido</span></div><div><b style="color:${resMain.c}">${resMain.v}</b><span>${resMain.l}</span></div><div><b style="color:var(--gold)">${g.cpr!=null?money(g.cpr):'—'}</b><span>Costo x resultado</span></div>${(()=>{const ps=PRODUCTS.filter(p=>inTab(p,k));if(!ps.length)return `<div><b style="color:var(--gold-dim)">${l.length}</b><span>Campañas</span></div>`;const r=ps.reduce((x,p)=>x+p.rev,0),sp=ps.reduce((x,p)=>x+p.spend,0);return `<div><b style="color:var(--green)">${money(r)}</b><span>Ingresos</span></div><div><b style="color:${roasColor(r/sp)}">${roasTxt(r/sp)}</b><span>ROAS</span></div>`})()}</div>`}
     </div>`;
   });
   h+=`</div>`;
@@ -548,6 +590,7 @@ function renderGeneric(catKey,panel,groups,sel='todos'){
   if(groups) h+=subtabs(catKey,[{k:'todos',l:'Todas'},...Object.entries(groups).map(([k,l])=>({k,l}))],sel);
   const prods=PRODUCTS.filter(p=>inTab(p,catKey)&&(sel==='todos'||p.grps.includes(sel)));
   h+=revenueBlock(prods,`Ingresos · ${sel==='todos'?K.label:groups[sel]}`);
+  if(isAw) h+=followersBlock(list,a);
   h+=`<div class="sec">Métricas Meta Ads</div>`;
   h+=stdKpis(a,isAw?'Visitas al perfil IG':'Compras',isAw?'var(--teal)':'var(--green)');
   if(groups && sel==='todos'){
@@ -563,9 +606,9 @@ function renderGeneric(catKey,panel,groups,sel='todos'){
   h+=`<div class="sec">Resumen campañas · desglose campaña por campaña</div>`;
   const notes={
     vsl:'Campañas con video de ventas (VSL) y objetivo Ventas. “Frío/Tibio/Templado” indica la temperatura del público. Costo por compra calculado sobre compras web del píxel. Las campañas Airfryer del 07/09 son pruebas por país (MEX, COL, USA). Ingresos por campaña = compras atribuidas por Meta × precio de venta.',
-    aw:'Objetivo Tráfico hacia el perfil de Instagram; el resultado es “visita al perfil”. Los clics en el enlace incluyen los clics hacia el perfil.',
+    aw:'Objetivo Tráfico hacia el perfil de Instagram; el resultado es “visita al perfil”. Seguidores IG = métrica “Instagram follows” de Meta (seguidores nuevos atribuidos a los anuncios). Los clics en el enlace incluyen los clics hacia el perfil.',
     ventas:'Campañas de venta directa de Mujer Metabólica ($57). Ingresos por campaña = compras registradas por Meta × $57; las ventas reales (336 en Hotmart desde el primer lanzamiento, 10/04/2026) se muestran en el bloque de ingresos junto con la inversión de captación de los lanzamientos.'};
-  h+=table(list,{note:notes[catKey],resCol:isAw?'Visitas perfil':'Compras'});
+  h+=table(list,{note:notes[catKey],resCol:isAw?'Visitas perfil':'Compras',fol:isAw});
   h+=`<div class="sec">Campañas · costo por resultado</div><div class="ccards">${list.map(c=>ccard(c,list,groups?groups[c.grp]:'')).join('')}</div>`;
   el(panel).innerHTML=h;
   Object.keys(TABLES).forEach(renderTable);
