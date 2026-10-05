@@ -674,6 +674,8 @@ const GROWTH = {
 const PAID_MONTHS=[
   {m:'Abr',ig:139,fb:292,spend:757.62},{m:'May',ig:116,fb:385,spend:1291.88},{m:'Jun',ig:22,fb:50,spend:407.49},
   {m:'Jul',ig:795,fb:294,spend:1317.86},{m:'Ago',ig:1087,fb:211,spend:1252.45},{m:'Sep',ig:964,fb:319,spend:2979.72},{m:'Oct 1–4',ig:26,fb:3,spend:39.62}];
+// Seguidores nuevos reales IG + FB (dato consolidado, orgánico + pauta)
+const TOTAL_FOL=6583;
 const gv=(n,k)=>GROWTH[n].m.find(x=>x.k===k);
 const prevOf=x=>x.v/(1+x.g/100);
 const mult=x=>(1+x.g/100);
@@ -681,14 +683,13 @@ const short=n=>n>=1e6?nf(n/1e6,1)+' mill.':n>=1e4?nf(n/1e3,1)+' mil':nf(n);
 
 function renderCrec(){
   const paidIg=sum(PAID_MONTHS,'ig'), paidFb=sum(PAID_MONTHS,'fb'), paidSpend=sum(PAID_MONTHS,'spend');
-  const igF=gv('ig','fol').v, fbF=gv('fb','fol').v, totF=igF+fbF;
-  const orgIg=Math.max(0,igF-paidIg), orgFb=Math.max(0,fbF-paidFb), paidT=paidIg+paidFb, orgT=orgIg+orgFb;
-  const prevF=prevOf(gv('ig','fol'))+prevOf(gv('fb','fol'));
+  const igF=gv('ig','fol').v, fbF=gv('fb','fol').v, totF=TOTAL_FOL;
+  const orgIg=Math.max(0,igF-paidIg), orgFb=Math.max(0,fbF-paidFb), paidT=paidIg+paidFb, orgT=Math.max(0,totF-paidT);
   const tot=k=>gv('ig',k).v+gv('fb',k).v;
   let h=`<div class="sec">🌱 Crecimiento exponencial · Instagram + Facebook · 1 abr – 4 oct 2026</div>
   <p class="intro">Crecimiento total de las cuentas sumando contenido orgánico y pauta publicitaria. Fuente: Meta Business Suite (estadísticas de las cuentas) y Meta Ads (seguidores atribuidos a los anuncios).</p>`;
   h+=`<div class="kpis gr-hero">
-    <div class="kpi"><div class="v" style="color:var(--green)">+${nf(totF)}</div><div class="l">Seguidores nuevos · IG + FB</div><div class="d">Instagram ${nf(igF)} · Facebook ≈${nf(fbF)} · <b style="color:var(--green)">×${nf(totF/prevF,1)}</b> vs periodo anterior</div></div>
+    <div class="kpi"><div class="v" style="color:var(--green)">+${nf(totF)}</div><div class="l">Seguidores nuevos · IG + FB</div><div class="d">Instagram + Facebook · orgánico + pauta · dato real del periodo</div></div>
     <div class="kpi"><div class="v">${short(tot('reach'))}</div><div class="l">Alcance total</div><div class="d">IG ${short(gv('ig','reach').v)} · FB ${short(gv('fb','reach').v)}</div></div>
     <div class="kpi"><div class="v" style="color:var(--mauve)">${short(tot('views'))}</div><div class="l">Visualizaciones</div><div class="d">IG ${short(gv('ig','views').v)} · FB ${short(gv('fb','views').v)}</div></div>
     <div class="kpi"><div class="v" style="color:var(--teal)">${short(tot('clicks'))}</div><div class="l">Clics en el enlace</div><div class="d">${short(tot('visits'))} visitas al perfil / página</div></div>
@@ -710,7 +711,7 @@ function renderCrec(){
   const srow=(l,o,p)=>{const t=o+p;return `<div class="srow"><span>${l}</span><div class="split"><div data-tip="<b>${l}</b> · orgánico<br><b>${nf(o)}</b> seguidores (${pct(o/t)})" style="width:${o/t*100}%;background:var(--org)">${pct(o/t)}</div><div data-tip="<b>${l}</b> · pauta<br><b>${nf(p)}</b> seguidores (${pct(p/t)})" style="width:${p/t*100}%;background:var(--paid)">${pct(p/t)}</div></div><b>${nf(t)}</b></div>`};
   h+=srow('Instagram',orgIg,paidIg)+srow('Facebook',orgFb,paidFb)+srow('Total',orgT,paidT);
   h+=`<div class="kpis" style="margin-top:18px">
-    <div class="kpi"><div class="v" style="color:var(--org)">${nf(orgT)}</div><div class="l">Seguidores orgánicos</div><div class="d">IG ${nf(orgIg)} · FB ≈${nf(orgFb)}</div></div>
+    <div class="kpi"><div class="v" style="color:var(--org)">${nf(orgT)}</div><div class="l">Seguidores orgánicos</div><div class="d">${nf(totF)} totales − ${nf(paidT)} de pauta</div></div>
     <div class="kpi"><div class="v" style="color:var(--paid)">${nf(paidT)}</div><div class="l">Seguidores por pauta</div><div class="d">IG ${nf(paidIg)} · FB ${nf(paidFb)}</div></div>
     <div class="kpi"><div class="v">${money(paidSpend)}</div><div class="l">Inversión en pauta del periodo</div><div class="d">ambas cuentas, todas las campañas</div></div>
     <div class="kpi"><div class="v" style="color:var(--gold)">${money(paidSpend/totF)}</div><div class="l">Costo por seguidor total</div><div class="d">${money(paidSpend/paidT)} por seguidor atribuido a pauta</div></div>
@@ -724,7 +725,7 @@ function renderCrec(){
    <div class="xl">${PAID_MONTHS.map(x=>`<span>${x.m}</span>`).join('')}</div>
    <div class="note">El salto desde julio coincide con las campañas NSN Seguidores (15 jul – 3 ago) y los lanzamientos de Agosto y Mujer Liviana. Fuente: Meta Ads, cuentas 565816124663247 y 1697488988267910.</div></div>`;
   // table view
-  h+=`<div class="sec">Tabla de datos</div><div class="tcard"><table class="rev"><thead><tr><th>Métrica</th><th>Instagram</th><th>Crec. IG</th><th>Facebook</th><th>Crec. FB</th><th>Total IG + FB</th></tr></thead><tbody>${GROWTH.ig.m.map((x,i)=>{const y=GROWTH.fb.m[i];return `<tr><td class="name">${x.l}${x.note?`<small>${x.note}</small>`:''}</td><td>${nf(x.v)}</td><td style="color:var(--green)">↑ ${nf(x.g,1)}%</td><td>${y.approx&&y.k==='fol'?'≈':''}${nf(y.v)}</td><td style="color:var(--green)">↑ ${y.approx?'≈':''}${nf(y.g,1)}%</td><td style="color:var(--gold)">${nf(x.v+y.v)}</td></tr>`}).join('')}</tbody></table>
+  h+=`<div class="sec">Tabla de datos</div><div class="tcard"><table class="rev"><thead><tr><th>Métrica</th><th>Instagram</th><th>Crec. IG</th><th>Facebook</th><th>Crec. FB</th><th>Total IG + FB</th></tr></thead><tbody>${GROWTH.ig.m.map((x,i)=>{const y=GROWTH.fb.m[i];return `<tr><td class="name">${x.l}${x.note?`<small>${x.note}</small>`:''}</td><td>${nf(x.v)}</td><td style="color:var(--green)">↑ ${nf(x.g,1)}%</td><td>${y.approx&&y.k==='fol'?'≈':''}${nf(y.v)}</td><td style="color:var(--green)">↑ ${y.approx?'≈':''}${nf(y.g,1)}%</td><td style="color:var(--gold)">${nf(x.k==='fol'?TOTAL_FOL:x.v+y.v)}</td></tr>`}).join('')}</tbody></table>
    <div class="note">Valores de Meta Business Suite del 1 abr al 4 oct 2026 (orgánico + pauta). Las cifras en “mil / mill.” vienen redondeadas en Meta. El alcance total suma ambas redes (una misma persona puede contarse en las dos).</div></div>`;
   el('p-crecimiento').innerHTML=h;
 }
