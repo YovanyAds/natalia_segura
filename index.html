@@ -172,6 +172,42 @@ tr.subrow td.name{color:var(--gold-dim);font-weight:400;padding-left:22px}
 .hot{border-color:#3d3523}
 .hot-h{color:var(--gold);font-weight:700;font-size:17px;padding:14px 0 4px;display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
 .hot-h span{font-family:'DM Mono',monospace;font-size:12px;font-weight:400;color:var(--muted)}
+:root{--ig:#c95a93;--fb:#4f8ee0;--org:#2fa8a0;--paid:#cc7414}
+.gr-hero{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:18px}
+.gr-hero .kpi:first-child{background:linear-gradient(135deg,#132019,#15150f);border-color:#23472b}
+.gr-hero .kpi:first-child .v{font-size:clamp(34px,4vw,48px)}
+.up{display:inline-block;font-family:'DM Mono',monospace;font-size:12.5px;color:var(--green);background:var(--green-bg);border:1px solid #23472b;border-radius:999px;padding:2px 9px;margin-left:8px;vertical-align:middle}
+.nets{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.net{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--nc);border-radius:18px;padding:22px 26px}
+.net h3{color:var(--gold);font-size:19px;display:flex;align-items:center;gap:10px}
+.net h3 i{width:10px;height:10px;border-radius:50%;background:var(--nc)}
+.net .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px 14px;margin-top:16px}
+.net .grid b{display:block;font-family:'DM Mono',monospace;font-size:22px;font-weight:500;color:var(--gold)}
+.net .grid span{display:block;font-size:11.5px;color:var(--faint);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+.net .grid em{font-style:normal;font-family:'DM Mono',monospace;font-size:12px;color:var(--green)}
+.net .grid small{display:block;font-size:11.5px;color:var(--muted)}
+.cmp{display:grid;grid-template-columns:170px 1fr 120px;gap:8px 14px;align-items:center;font-size:13px}
+.cmp .ml{color:var(--gold-dim)}
+.cmp .bars2 div{height:9px;border-radius:0 4px 4px 0;margin:3px 0;position:relative}
+.cmp .mv{font-family:'DM Mono',monospace;text-align:right;color:var(--gold)}
+.cmp .mv small{display:block;color:var(--green);font-size:11.5px}
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:12.5px;color:var(--gold-dim);margin-bottom:14px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:middle}
+.split{display:flex;height:30px;border-radius:8px;overflow:hidden;gap:2px;background:var(--card)}
+.split div{display:flex;align-items:center;padding:0 10px;font-family:'DM Mono',monospace;font-size:12.5px;color:#0d0d09;font-weight:500;white-space:nowrap;overflow:hidden}
+.srow{display:grid;grid-template-columns:110px 1fr 90px;gap:14px;align-items:center;margin:10px 0;font-size:13.5px;color:var(--gold-dim)}
+.srow b{font-family:'DM Mono',monospace;color:var(--gold);text-align:right;font-weight:500}
+.cols{display:flex;align-items:flex-end;gap:14px;height:240px;padding:10px 4px 0;border-bottom:1px solid var(--line2)}
+.col{flex:1;display:flex;flex-direction:column-reverse;gap:2px;height:100%;cursor:default;position:relative}
+.col div:first-child{border-radius:0}
+.col div:last-child{border-radius:4px 4px 0 0}
+.col .tot{position:absolute;left:0;right:0;text-align:center;font-family:'DM Mono',monospace;font-size:12px;color:var(--gold-dim)}
+.xl{display:flex;gap:14px;padding:8px 4px 0}
+.xl span{flex:1;text-align:center;font-size:12px;color:var(--faint);font-family:'DM Mono',monospace}
+#tip{position:fixed;pointer-events:none;z-index:50;background:#1f1f17;border:1px solid var(--line2);border-radius:10px;padding:8px 12px;font-size:12.5px;color:var(--text);display:none;box-shadow:0 6px 20px rgba(0,0,0,.4);line-height:1.5}
+#tip b{color:var(--gold);font-family:'DM Mono',monospace;font-weight:500}
+@media (max-width:1100px){.gr-hero{grid-template-columns:1fr 1fr}.nets{grid-template-columns:1fr}}
+@media (max-width:560px){.net .grid{grid-template-columns:1fr 1fr}.cmp{grid-template-columns:1fr;gap:2px}.cmp .mv{text-align:left;margin-bottom:10px}.srow{grid-template-columns:70px 1fr 64px}.cols{gap:6px}.xl{gap:6px}}
 footer{margin-top:60px;color:var(--faint);font-size:12.5px;text-align:center;font-family:'DM Mono',monospace}
 
 @media (max-width:1100px){.kpis{grid-template-columns:repeat(2,1fr)}.lcomp{grid-template-columns:repeat(2,1fr)}.ins{grid-template-columns:1fr}}
@@ -208,6 +244,7 @@ footer{margin-top:60px;color:var(--faint);font-size:12.5px;text-align:center;fon
   <nav class="tabs" id="tabs"></nav>
 
   <section class="panel" id="p-resumen"></section>
+  <section class="panel" id="p-crecimiento"></section>
   <section class="panel" id="p-lanzamientos"></section>
   <section class="panel" id="p-vsl"></section>
   <section class="panel" id="p-awareness"></section>
@@ -216,6 +253,7 @@ footer{margin-top:60px;color:var(--faint);font-size:12.5px;text-align:center;fon
   <footer>Fuente: Meta Ads Manager · métricas acumuladas de toda la vida de cada campaña · USD · actualizado 04/10/2026</footer>
 </div>
 
+<div id="tip"></div>
 <script>
 /* ---------------- DATA (Meta Ads, histórico completo de cada campaña) ---------------- */
 const A1 = '565816124663247', A2 = '1697488988267910';
@@ -614,9 +652,92 @@ function renderGeneric(catKey,panel,groups,sel='todos'){
   Object.keys(TABLES).forEach(renderTable);
 }
 
+/* ---------------- CRECIMIENTO (Meta Business Suite, 1 abr – 4 oct 2026, orgánico + pauta) ----------------
+   v = valor del periodo, g = crecimiento % vs periodo anterior reportado por Meta (periodo anterior estimado = v / (1+g)). */
+const GROWTH = {
+  ig:{label:'Instagram',color:'var(--ig)',m:[
+    {k:'views',l:'Visualizaciones',v:3503055,g:67.6,note:'2.947.190 en Instagram + 555.865 en Facebook'},
+    {k:'reach',l:'Alcance',v:309400,g:101.5},
+    {k:'inter',l:'Interacciones con el contenido',v:29800,g:57.6},
+    {k:'clicks',l:'Clics en el enlace',v:45600,g:646.5},
+    {k:'visits',l:'Visitas al perfil',v:54700,g:192.6},
+    {k:'fol',l:'Seguidores nuevos',v:6583,g:155.9}]},
+  fb:{label:'Facebook',color:'var(--fb)',m:[
+    {k:'views',l:'Visualizaciones',v:2700000,g:234.8},
+    {k:'reach',l:'Espectadores (alcance)',v:465000,g:169},
+    {k:'inter',l:'Interacciones con el contenido',v:21200,g:420.1},
+    {k:'clicks',l:'Clics en el enlace',v:47200,g:1200,approx:true},
+    {k:'visits',l:'Visitas a la página',v:32600,g:168.3},
+    {k:'fol',l:'Seguidores nuevos',v:2500,g:1100,approx:true}]},
+};
+// Seguidores atribuidos a la pauta por mes (Meta Ads, cuentas 565816124663247 + 1697488988267910)
+const PAID_MONTHS=[
+  {m:'Abr',ig:139,fb:292,spend:757.62},{m:'May',ig:116,fb:385,spend:1291.88},{m:'Jun',ig:22,fb:50,spend:407.49},
+  {m:'Jul',ig:795,fb:294,spend:1317.86},{m:'Ago',ig:1087,fb:211,spend:1252.45},{m:'Sep',ig:964,fb:319,spend:2979.72},{m:'Oct 1–4',ig:26,fb:3,spend:39.62}];
+const gv=(n,k)=>GROWTH[n].m.find(x=>x.k===k);
+const prevOf=x=>x.v/(1+x.g/100);
+const mult=x=>(1+x.g/100);
+const short=n=>n>=1e6?nf(n/1e6,1)+' mill.':n>=1e4?nf(n/1e3,1)+' mil':nf(n);
+
+function renderCrec(){
+  const paidIg=sum(PAID_MONTHS,'ig'), paidFb=sum(PAID_MONTHS,'fb'), paidSpend=sum(PAID_MONTHS,'spend');
+  const igF=gv('ig','fol').v, fbF=gv('fb','fol').v, totF=igF+fbF;
+  const orgIg=Math.max(0,igF-paidIg), orgFb=Math.max(0,fbF-paidFb), paidT=paidIg+paidFb, orgT=orgIg+orgFb;
+  const prevF=prevOf(gv('ig','fol'))+prevOf(gv('fb','fol'));
+  const tot=k=>gv('ig',k).v+gv('fb',k).v;
+  let h=`<div class="sec">🌱 Crecimiento exponencial · Instagram + Facebook · 1 abr – 4 oct 2026</div>
+  <p class="intro">Crecimiento total de las cuentas sumando contenido orgánico y pauta publicitaria. Fuente: Meta Business Suite (estadísticas de las cuentas) y Meta Ads (seguidores atribuidos a los anuncios).</p>`;
+  h+=`<div class="kpis gr-hero">
+    <div class="kpi"><div class="v" style="color:var(--green)">+${nf(totF)}</div><div class="l">Seguidores nuevos · IG + FB</div><div class="d">Instagram ${nf(igF)} · Facebook ≈${nf(fbF)} · <b style="color:var(--green)">×${nf(totF/prevF,1)}</b> vs periodo anterior</div></div>
+    <div class="kpi"><div class="v">${short(tot('reach'))}</div><div class="l">Alcance total</div><div class="d">IG ${short(gv('ig','reach').v)} · FB ${short(gv('fb','reach').v)}</div></div>
+    <div class="kpi"><div class="v" style="color:var(--mauve)">${short(tot('views'))}</div><div class="l">Visualizaciones</div><div class="d">IG ${short(gv('ig','views').v)} · FB ${short(gv('fb','views').v)}</div></div>
+    <div class="kpi"><div class="v" style="color:var(--teal)">${short(tot('clicks'))}</div><div class="l">Clics en el enlace</div><div class="d">${short(tot('visits'))} visitas al perfil / página</div></div>
+  </div>`;
+  // per network
+  h+=`<div class="sec">Crecimiento por red · vs periodo anterior</div><div class="nets">`;
+  ['ig','fb'].forEach(n=>{const N=GROWTH[n];
+    h+=`<div class="net" style="--nc:${N.color}"><h3><i></i>${N.label}</h3><div class="grid">${N.m.map(x=>`<div><b>${x.k==='fol'?'+'+nf(x.v):short(x.v)}</b><span>${x.l}</span><em>↑ ${x.approx?'≈':''}${nf(x.g,x.g%1?1:0)}%</em> <small>×${nf(mult(x),1)} · antes ≈${short(Math.round(prevOf(x)))}</small></div>`).join('')}</div></div>`});
+  h+=`</div>`;
+  // antes vs ahora
+  h+=`<div class="sec">Antes vs ahora · multiplicador de crecimiento</div><div class="tcard" style="padding:22px 26px">
+   <div class="legend"><span><i style="background:var(--line2)"></i>Periodo anterior (estimado)</span><span><i style="background:var(--ig)"></i>Instagram · este periodo</span><span><i style="background:var(--fb)"></i>Facebook · este periodo</span></div><div class="cmp">`;
+  ['fol','reach','visits','clicks','inter','views'].forEach(k=>['ig','fb'].forEach(n=>{const x=gv(n,k),N=GROWTH[n],max=Math.max(gv('ig',k).v,gv('fb',k).v);
+    h+=`<div class="ml">${x.l}<br><small style="color:var(--faint)">${N.label}</small></div><div class="bars2"><div data-tip="<b>${N.label}</b> · ${x.l}<br>Periodo anterior ≈ <b>${nf(Math.round(prevOf(x)))}</b>" style="width:${prevOf(x)/max*100}%;background:var(--line2)"></div><div data-tip="<b>${N.label}</b> · ${x.l}<br>1 abr – 4 oct: <b>${nf(x.v)}</b><br>↑ ${nf(x.g,1)}%" style="width:${x.v/max*100}%;background:${N.color}"></div></div><div class="mv">${x.k==='fol'?nf(x.v):short(x.v)}<small>×${nf(mult(x),1)}</small></div>`}));
+  h+=`</div><div class="note">Periodo anterior estimado a partir del % de crecimiento que muestra Meta Business Suite (valor ÷ (1 + crecimiento)). Facebook muestra “1,1 mil%” y “1,2 mil%” redondeados.</div></div>`;
+  // organic vs paid
+  h+=`<div class="sec">Seguidores nuevos · orgánico vs pauta</div><div class="tcard" style="padding:22px 26px">
+   <div class="legend"><span><i style="background:var(--org)"></i>Orgánico (contenido)</span><span><i style="background:var(--paid)"></i>Pauta publicitaria (Meta Ads)</span></div>`;
+  const srow=(l,o,p)=>{const t=o+p;return `<div class="srow"><span>${l}</span><div class="split"><div data-tip="<b>${l}</b> · orgánico<br><b>${nf(o)}</b> seguidores (${pct(o/t)})" style="width:${o/t*100}%;background:var(--org)">${pct(o/t)}</div><div data-tip="<b>${l}</b> · pauta<br><b>${nf(p)}</b> seguidores (${pct(p/t)})" style="width:${p/t*100}%;background:var(--paid)">${pct(p/t)}</div></div><b>${nf(t)}</b></div>`};
+  h+=srow('Instagram',orgIg,paidIg)+srow('Facebook',orgFb,paidFb)+srow('Total',orgT,paidT);
+  h+=`<div class="kpis" style="margin-top:18px">
+    <div class="kpi"><div class="v" style="color:var(--org)">${nf(orgT)}</div><div class="l">Seguidores orgánicos</div><div class="d">IG ${nf(orgIg)} · FB ≈${nf(orgFb)}</div></div>
+    <div class="kpi"><div class="v" style="color:var(--paid)">${nf(paidT)}</div><div class="l">Seguidores por pauta</div><div class="d">IG ${nf(paidIg)} · FB ${nf(paidFb)}</div></div>
+    <div class="kpi"><div class="v">${money(paidSpend)}</div><div class="l">Inversión en pauta del periodo</div><div class="d">ambas cuentas, todas las campañas</div></div>
+    <div class="kpi"><div class="v" style="color:var(--gold)">${money(paidSpend/totF)}</div><div class="l">Costo por seguidor total</div><div class="d">${money(paidSpend/paidT)} por seguidor atribuido a pauta</div></div>
+  </div><div class="note">Seguidores por pauta = “Instagram follows” y “Facebook likes” atribuidos a los anuncios en Meta Ads. Orgánico = total de Meta Business Suite − pauta. Facebook usa 2,5 mil (valor redondeado que muestra Meta).</div></div>`;
+  // monthly paid
+  const maxM=Math.max(...PAID_MONTHS.map(x=>x.ig+x.fb));
+  h+=`<div class="sec">Seguidores atribuidos a la pauta · por mes</div><div class="tcard" style="padding:22px 26px">
+   <div class="legend"><span><i style="background:var(--ig)"></i>Instagram</span><span><i style="background:var(--fb)"></i>Facebook</span></div>
+   <div class="cols">${PAID_MONTHS.map(x=>{const t=x.ig+x.fb,tip=`<b>${x.m} 2026</b><br>Instagram: <b>${nf(x.ig)}</b><br>Facebook: <b>${nf(x.fb)}</b><br>Inversión: <b>${money(x.spend)}</b>`;
+     return `<div class="col" data-tip="${tip}"><div style="height:${x.fb/maxM*92}%;background:var(--fb)"></div><div style="height:${x.ig/maxM*92}%;background:var(--ig)"></div><span class="tot" style="bottom:${t/maxM*92+1}%">${nf(t)}</span></div>`}).join('')}</div>
+   <div class="xl">${PAID_MONTHS.map(x=>`<span>${x.m}</span>`).join('')}</div>
+   <div class="note">El salto desde julio coincide con las campañas NSN Seguidores (15 jul – 3 ago) y los lanzamientos de Agosto y Mujer Liviana. Fuente: Meta Ads, cuentas 565816124663247 y 1697488988267910.</div></div>`;
+  // table view
+  h+=`<div class="sec">Tabla de datos</div><div class="tcard"><table class="rev"><thead><tr><th>Métrica</th><th>Instagram</th><th>Crec. IG</th><th>Facebook</th><th>Crec. FB</th><th>Total IG + FB</th></tr></thead><tbody>${GROWTH.ig.m.map((x,i)=>{const y=GROWTH.fb.m[i];return `<tr><td class="name">${x.l}${x.note?`<small>${x.note}</small>`:''}</td><td>${nf(x.v)}</td><td style="color:var(--green)">↑ ${nf(x.g,1)}%</td><td>${y.approx&&y.k==='fol'?'≈':''}${nf(y.v)}</td><td style="color:var(--green)">↑ ${y.approx?'≈':''}${nf(y.g,1)}%</td><td style="color:var(--gold)">${nf(x.v+y.v)}</td></tr>`}).join('')}</tbody></table>
+   <div class="note">Valores de Meta Business Suite del 1 abr al 4 oct 2026 (orgánico + pauta). Las cifras en “mil / mill.” vienen redondeadas en Meta. El alcance total suma ambas redes (una misma persona puede contarse en las dos).</div></div>`;
+  el('p-crecimiento').innerHTML=h;
+}
+
+/* tooltip */
+const TIP=document.getElementById('tip');
+document.addEventListener('mousemove',e=>{const t=e.target.closest('[data-tip]');if(!t){TIP.style.display='none';return}
+  TIP.innerHTML=t.dataset.tip;TIP.style.display='block';const x=Math.min(e.clientX+14,innerWidth-TIP.offsetWidth-8);TIP.style.left=x+'px';TIP.style.top=(e.clientY+14)+'px'});
+
 /* ---------------- TABS ---------------- */
 const TABS=[
   {k:'resumen',l:'Resumen',icon:'📊',n:C.length,accent:'var(--gold)',r:()=>renderResumen()},
+  {k:'crecimiento',l:'Crecimiento',icon:'🌱',n:'IG+FB',accent:'#2fa8a0',r:()=>renderCrec()},
   {k:'lanzamientos',l:'Lanzamientos',icon:'🚀',n:byCat('lanz').length,accent:'var(--orange)',r:s=>renderLanz(s)},
   {k:'vsl',l:'VSLs',icon:'🎬',n:byCat('vsl').length,accent:'var(--mauve)',r:s=>renderGeneric('vsl','p-vsl',VGROUPS,s)},
   {k:'awareness',l:'Awareness',icon:'📈',n:byCat('aw').length,accent:'var(--teal)',r:()=>renderGeneric('aw','p-awareness',null)},
